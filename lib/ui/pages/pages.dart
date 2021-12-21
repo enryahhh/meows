@@ -4,4 +4,5 @@ import '../../shared/shared.dart';
 part 'splashscreen_page.dart';
 part 'signup_page.dart';
 part 'signin_page.dart';
+part 'home_page.dart';
 

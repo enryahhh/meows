@@ -8,6 +8,31 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  
+  Widget signUpSocmed() {
+    return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+      Container(
+        width: 42,
+        height: 42,
+        margin: EdgeInsets.only(right: 16),
+        padding: EdgeInsets.all(9),
+        decoration: BoxDecoration(
+            border: Border.all(color: Color(0xFFE3E8F1)),
+            borderRadius: BorderRadius.circular(21)),
+        child: Image.asset("assets/images/google.png"),
+      ),
+      Container(
+        width: 42,
+        height: 42,
+        padding: EdgeInsets.all(9),
+        decoration: BoxDecoration(
+            border: Border.all(color: Color(0xFFE3E8F1)),
+            borderRadius: BorderRadius.circular(21)),
+        child: Image.asset("assets/images/fb.png"),
+      )
+    ]);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,39 +111,23 @@ class _SignUpPageState extends State<SignUpPage> {
           SizedBox(
             height: 23,
           ),
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Container(
-              width: 42,
-              height: 42,
-              margin: EdgeInsets.only(right: 16),
-              padding: EdgeInsets.all(9),
-              decoration: BoxDecoration(
-                  border: Border.all(color: Color(0xFFE3E8F1)),
-                  borderRadius: BorderRadius.circular(21)),
-              child: Image.asset("assets/images/google.png"),
-            ),
-            Container(
-              width: 42,
-              height: 42,
-              padding: EdgeInsets.all(9),
-              decoration: BoxDecoration(
-                  border: Border.all(color: Color(0xFFE3E8F1)),
-                  borderRadius: BorderRadius.circular(21)),
-              child: Image.asset("assets/images/fb.png"),
-            )
-          ]),
+          signUpSocmed(),
           Padding(
-            padding: const EdgeInsets.only(top:15.0),
-            child: Row(
-              mainAxisAlignment:MainAxisAlignment.center,
-              children:[
-                Text("Have any account? ",style:purpleTextFont),
-                GestureDetector(onTap:(){
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>SignInPage()));
-                },child: Text("Login",style: purpleTextFont.copyWith(fontWeight:FontWeight.bold),))
-              ]
-            )
-          )
+              padding: const EdgeInsets.only(top: 15.0),
+              child:
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                Text("Have any account? ", style: purpleTextFont),
+                GestureDetector(
+                    onTap: () {
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (_) => SignInPage()));
+                    },
+                    child: Text(
+                      "Login",
+                      style:
+                          purpleTextFont.copyWith(fontWeight: FontWeight.bold),
+                    ))
+              ]))
         ]),
       ),
     );

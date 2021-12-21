@@ -44,7 +44,9 @@ class _SignInPageState extends State<SignInPage> {
             margin: EdgeInsets.only(top: 35),
             child: ElevatedButton(
               child: Text('Login'),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx)=>HomePage()));
+              },
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(mainColor),
                 elevation: MaterialStateProperty.all(0),
