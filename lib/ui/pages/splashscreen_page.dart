@@ -33,7 +33,9 @@ class SplashPage extends StatelessWidget {
               margin: EdgeInsets.only(top: 35),
               child: ElevatedButton(
                 child: Text('Login'),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (ctx)=>SignInPage()));
+                },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(mainColor),
                   elevation: MaterialStateProperty.all(0),

@@ -1,20 +1,20 @@
 part of 'pages.dart';
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({Key? key}) : super(key: key);
+class SignInPage extends StatefulWidget {
+  const SignInPage({Key? key}) : super(key: key);
 
   @override
-  _SignUpPageState createState() => _SignUpPageState();
+  _SignInPageState createState() => _SignInPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         margin: EdgeInsets.only(top: 70, left: 52, right: 54),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text("Sign Up",
+          Text("Login",
               style: TextStyle(
                 fontSize: 36,
                 color: mainColor,
@@ -22,13 +22,7 @@ class _SignUpPageState extends State<SignUpPage> {
           SizedBox(height: 40),
           TextField(
             decoration: InputDecoration(
-                labelText: 'Username',
-                prefixIcon: Icon(Icons.account_circle_outlined)),
-          ),
-          SizedBox(height: 32),
-          TextField(
-            decoration: InputDecoration(
-                labelText: 'Email', prefixIcon: Icon(Icons.email_outlined)),
+                labelText: 'Email/Username', prefixIcon: Icon(Icons.email_outlined)),
           ),
           SizedBox(height: 32),
           TextField(
@@ -36,19 +30,20 @@ class _SignUpPageState extends State<SignUpPage> {
             decoration: InputDecoration(
                 labelText: 'Password', prefixIcon: Icon(Icons.lock_outline)),
           ),
-          SizedBox(height: 32),
-          TextField(
-            obscureText: true,
-            decoration: InputDecoration(
-                labelText: 'Password Confirmation',
-                prefixIcon: Icon(Icons.lock_outline)),
+          Align(
+            alignment: Alignment.centerRight,
+            child:Padding(
+              padding: const EdgeInsets.only(top:16.0),
+              child: Text("Forgot Password"),
+            ),
           ),
+          SizedBox(height: 32),
           Container(
             width: 304,
             height: 52,
             margin: EdgeInsets.only(top: 35),
             child: ElevatedButton(
-              child: Text('Create'),
+              child: Text('Login'),
               onPressed: () {},
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(mainColor),
@@ -64,7 +59,7 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
             ),
           ),
-          SizedBox(height: 32),
+          SizedBox(height: 55),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -107,17 +102,17 @@ class _SignUpPageState extends State<SignUpPage> {
               child: Image.asset("assets/images/fb.png"),
             )
           ]),
-          Padding(
-            padding: const EdgeInsets.only(top:15.0),
-            child: Row(
-              mainAxisAlignment:MainAxisAlignment.center,
-              children:[
-                Text("Have any account? ",style:purpleTextFont),
-                GestureDetector(onTap:(){
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>SignInPage()));
-                },child: Text("Login",style: purpleTextFont.copyWith(fontWeight:FontWeight.bold),))
-              ]
-            )
+          SizedBox(
+            height: 123,
+          ),
+          Row(
+            mainAxisAlignment:MainAxisAlignment.center,
+            children:[
+              Text("Doesn't have an account? ",style:purpleTextFont),
+              GestureDetector(onTap:(){
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>SignUpPage()));
+              },child: Text("Register",style: purpleTextFont.copyWith(fontWeight:FontWeight.bold),))
+            ]
           )
         ]),
       ),
