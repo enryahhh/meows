@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "259029285185",
+    "project_id": "meows-d1d3e",
+    "storage_bucket": "meows-d1d3e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:259029285185:android:8ef7c89096b68cd6c1c9c0",
+        "android_client_info": {
+          "package_name": "com.example.meows_co"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "259029285185-6bm17cjq5ek4stmdfvopjal0aqvdt17i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDchbL-9P37b-XBwfXn7vf17fJ2PnVWLjo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "259029285185-6bm17cjq5ek4stmdfvopjal0aqvdt17i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

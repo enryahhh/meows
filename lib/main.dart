@@ -1,7 +1,14 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:meows_co/services/services.dart';
+import 'package:provider/provider.dart';
+import 'blocs/blocs.dart';
 import 'ui/pages/pages.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -9,12 +16,21 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Meows Co',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return StreamProvider.value(
+      value: AuthServices.userStream,
+      initialData: null,
+      child: MultiBlocProvider(
+        providers:[
+          BlocProvider(create: (_)=> UserBloc())
+        ],
+        child: MaterialApp(
+          title: 'Meows Co',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          home: SplashPage(),
+        ),
       ),
-      home: SplashPage(),
     );
   }
 }
