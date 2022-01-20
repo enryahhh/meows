@@ -94,7 +94,7 @@ class _CustomBottomNavigationState extends State<CustomBottomNavigation> {
                         ),
                         GestureDetector(
                           onTap: (){
-                            Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>DetailArticle()));
+                            Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>NewArticle()));
                           },
                           child: SizedBox(
                             height: 55,

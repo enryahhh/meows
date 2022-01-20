@@ -24,25 +24,17 @@ class _HomePageState extends State<HomePage>
   @override
   void initState() {
     tes = [
-    Container(
-        width: 347,
-        height: 243,
-        margin: EdgeInsets.only(bottom: 3),
-        child: Card(
-          elevation: 5,
-        )),
-    Container(
-        width: 347,
-        height: 243,
-        margin: EdgeInsets.only(bottom: 3),
-        child: Card(
-          elevation: 5,
-        )),
+    CardArticle(),
+    CardArticle(),
+    CardArticle()
   ];
 
   pages = [
     MainPage(tes: tes),
-    ...colors.map((e) => SearchPage(color: e)).toList()
+    SettingPage(),
+    SearchPage(color:Colors.green),
+    SearchPage(color:Colors.green),
+    SearchPage(color:Colors.green),
   ];
     currentPage = 0;
     tabController = TabController(length: 5, vsync: this);
@@ -78,13 +70,16 @@ class _HomePageState extends State<HomePage>
   Widget build(BuildContext context) {
     return Scaffold(
         
-        // floatingActionButton: ElevatedButton(
-        //     onPressed: () async {
-        //       await AuthServices.signOut();
-        //       Navigator.of(context).pushReplacement(
-        //           MaterialPageRoute(builder: (ctx) => SignInPage()));
-        //     },
-        //     child: Icon(Icons.logout)),
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.only(bottom:45.0),
+          child: ElevatedButton(
+              onPressed: () async {
+                await AuthServices.signOut();
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (ctx) => SignInPage()));
+              },
+              child: Icon(Icons.logout)),
+        ),
         body: CustomBottomNavigation(
             currentPage: currentPage,
             tabController: tabController,
