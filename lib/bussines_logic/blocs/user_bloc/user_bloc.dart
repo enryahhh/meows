@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meows_co/models/models.dart';
+import 'package:meows_co/data/models/models.dart';
 
 part 'user_event.dart';
 part 'user_state.dart';

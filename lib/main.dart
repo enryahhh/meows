@@ -1,9 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meows_co/services/services.dart';
+import 'package:meows_co/data/services/services.dart';
 import 'package:provider/provider.dart';
-import 'blocs/blocs.dart';
+import 'bussines_logic/blocs/blocs.dart';
 import 'ui/pages/pages.dart';
 
 void main() async {

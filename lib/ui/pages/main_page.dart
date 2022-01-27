@@ -24,8 +24,43 @@ class MainPage extends StatelessWidget {
             ),
             Container(
                 margin: EdgeInsets.only(top: 23, bottom: 8),
-                child: Text("Jum'at , 10 Desember 2021")),
+                child: Text("Jum'at , 22 Januari 2022")),
             Text("Hari ini", style: darkPurpleTextFont.copyWith(fontSize: 26)),
+            FutureBuilder(
+                builder: (context, AsyncSnapshot snapshot) {
+                  if (!snapshot.hasData) {
+                    return CircularProgressIndicator();
+                  } else {
+                    print(snapshot.data);
+                    if (snapshot.data.length == 0) {
+                      return Text("Ooops something went wrong");
+                    } else {
+                      return Container(
+                        height: 220,
+                        child: ListView.builder(
+                            itemCount: snapshot.data.length,
+                            itemBuilder: (ctx, i) {
+                              return GestureDetector(
+                                onTap: (){
+                                  Navigator.push(context, MaterialPageRoute(builder: (ctx)=>PostDetailPage()));
+                                },
+                                child: Card(
+                                    child: Container(
+                                        width: double.infinity,
+                                        padding: EdgeInsets.all(20),
+                                        child:
+                                            Text("${snapshot.data[i].title}"))),
+                              );
+                            }),
+                      );
+                    }
+                  }
+                  // return ListView.builder(
+                  //   itemCount: snapshot.data.,
+                  //   itemBuilder: )
+                  // return Text("asd");
+                },
+                future: PostServices().getListArticle()),
             // Container(
             //   width: 354,
             //   height: 306,
@@ -73,7 +108,7 @@ class MainPage extends StatelessWidget {
               ],
             ),
             SizedBox(height: 10),
-            
+
             ...tes,
 
             // Container(
