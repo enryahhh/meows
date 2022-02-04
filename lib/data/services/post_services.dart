@@ -3,7 +3,7 @@ part of 'services.dart';
 Dio dio = ConfigAPI().getDio("lSdsa2RibP6bRvURUy6kIB7mVHS53dWsPK1u6hDV");
 
 class PostServices {
-  Future<List<Post>> getListArticle() async {
+  Future<List<Post>> getListPost() async {
     late final List post;
     try {
       // final response = await http.get(Uri.parse(urlApi + "post"), headers: {

@@ -166,28 +166,28 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                       ),
                       SizedBox(height: 32),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                              width: SizeDevice(context).widthDevice * 0.25,
-                              child: Divider(
-                                height: 1,
-                                color: Colors.black,
-                              )),
-                          Text("Or With", style: TextStyle(fontSize: 12)),
-                          Container(
-                              width: SizeDevice(context).widthDevice * 0.25,
-                              child: Divider(
-                                height: 1,
-                                color: Colors.black,
-                              )),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 23,
-                      ),
-                      signUpSocmed(),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //   children: [
+                      //     Container(
+                      //         width: SizeDevice(context).widthDevice * 0.25,
+                      //         child: Divider(
+                      //           height: 1,
+                      //           color: Colors.black,
+                      //         )),
+                      //     Text("Or With", style: TextStyle(fontSize: 12)),
+                      //     Container(
+                      //         width: SizeDevice(context).widthDevice * 0.25,
+                      //         child: Divider(
+                      //           height: 1,
+                      //           color: Colors.black,
+                      //         )),
+                      //   ],
+                      // ),
+                      // SizedBox(
+                      //   height: 23,
+                      // ),
+                      // signUpSocmed(),
                       Padding(
                           padding: const EdgeInsets.only(top: 15.0),
                           child: Row(

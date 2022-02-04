@@ -117,27 +117,27 @@ class _SignInPageState extends State<SignInPage> {
                     SizedBox(
                       height: 23,
                     ),
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                      Container(
-                        width: 42,
-                        height: 42,
-                        margin: EdgeInsets.only(right: 16),
-                        padding: EdgeInsets.all(9),
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Color(0xFFE3E8F1)),
-                            borderRadius: BorderRadius.circular(21)),
-                        child: Image.asset("assets/images/google.png"),
-                      ),
-                      Container(
-                        width: 42,
-                        height: 42,
-                        padding: EdgeInsets.all(9),
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Color(0xFFE3E8F1)),
-                            borderRadius: BorderRadius.circular(21)),
-                        child: Image.asset("assets/images/fb.png"),
-                      )
-                    ]),
+                    // Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                    //   Container(
+                    //     width: 42,
+                    //     height: 42,
+                    //     margin: EdgeInsets.only(right: 16),
+                    //     padding: EdgeInsets.all(9),
+                    //     decoration: BoxDecoration(
+                    //         border: Border.all(color: Color(0xFFE3E8F1)),
+                    //         borderRadius: BorderRadius.circular(21)),
+                    //     child: Image.asset("assets/images/google.png"),
+                    //   ),
+                    //   Container(
+                    //     width: 42,
+                    //     height: 42,
+                    //     padding: EdgeInsets.all(9),
+                    //     decoration: BoxDecoration(
+                    //         border: Border.all(color: Color(0xFFE3E8F1)),
+                    //         borderRadius: BorderRadius.circular(21)),
+                    //     child: Image.asset("assets/images/fb.png"),
+                    //   )
+                    // ]),
                     SizedBox(
                       height: 123,
                     ),

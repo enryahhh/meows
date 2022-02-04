@@ -17,15 +17,16 @@ class MainPage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Icon(Icons.menu),
-                  Icon(Icons.search),
+                  // Icon(Icons.menu),
+                  Icon(Icons.notifications)
                 ],
               ),
             ),
-            Container(
-                margin: EdgeInsets.only(top: 23, bottom: 8),
-                child: Text("Jum'at , 22 Januari 2022")),
-            Text("Hari ini", style: darkPurpleTextFont.copyWith(fontSize: 26)),
+            // Container(
+            //     margin: EdgeInsets.only(top: 23, bottom: 8),
+            //     child: Text("Jum'at , 22 Januari 2022")),
+            SizedBox(height:20),
+            Text("Postingan Terbaru", style: darkPurpleTextFont.copyWith(fontSize: 26)),
             FutureBuilder(
                 builder: (context, AsyncSnapshot snapshot) {
                   if (!snapshot.hasData) {
@@ -60,7 +61,7 @@ class MainPage extends StatelessWidget {
                   //   itemBuilder: )
                   // return Text("asd");
                 },
-                future: PostServices().getListArticle()),
+                future: PostServices().getListPost()),
             // Container(
             //   width: 354,
             //   height: 306,

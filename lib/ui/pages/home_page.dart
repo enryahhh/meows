@@ -9,6 +9,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
+      int _selectedIndex = 0;
+      late PageController pageController;
   late int currentPage;
   late TabController tabController;
   final List<Color> colors = [
@@ -23,6 +25,7 @@ class _HomePageState extends State<HomePage>
 
   @override
   void initState() {
+    pageController = PageController(initialPage: _selectedIndex);
     tes = [
     CardArticle(),
     CardArticle(),
@@ -31,10 +34,10 @@ class _HomePageState extends State<HomePage>
 
   pages = [
     MainPage(tes: tes),
-    SettingPage(),
     SearchPage(color:Colors.green),
-    SearchPage(color:Colors.green),
-    SearchPage(color:Colors.green),
+    ListPostPage(),
+    ProfilePage(),
+    // SearchPage(color:Colors.green),
   ];
     currentPage = 0;
     tabController = TabController(length: 5, vsync: this);
@@ -56,6 +59,12 @@ class _HomePageState extends State<HomePage>
     });
   }
 
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+      pageController.jumpToPage(index);
+    });
+  }
 
   @override
   void dispose() {
@@ -80,20 +89,53 @@ class _HomePageState extends State<HomePage>
               },
               child: Icon(Icons.logout)),
         ),
-        body: CustomBottomNavigation(
-            currentPage: currentPage,
-            tabController: tabController,
-            colors: colors,
-            unselectedColor: Colors.white,
-            barColor: Colors.black,
-            end: 2,
-            start: 10,
-            child: TabBarView(
-              controller: tabController,
-              physics: const NeverScrollableScrollPhysics(),
-              children: pages
-            ),),
-        // body: 
+        // body: CustomBottomNavigation(
+        //     currentPage: currentPage,
+        //     tabController: tabController,
+        //     colors: colors,
+        //     unselectedColor: Colors.white,
+        //     barColor: Colors.black,
+        //     end: 2,
+        //     start: 10,
+        //     child: TabBarView(
+        //       controller: tabController,
+        //       physics: const NeverScrollableScrollPhysics(),
+        //       children: pages
+        //     ),),
+        body:PageView(
+          controller:pageController,
+          onPageChanged:(index){
+            setState(() {
+              _selectedIndex = index;
+            });
+          },
+          children: pages,
+        ),
+        bottomNavigationBar:BottomNavigationBar(
+          items: [
+            BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: "Beranda",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.assignment),
+            label: "Article",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.comment),
+            label: "Post",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: "Profile",
+          ),
+          ],
+          currentIndex: _selectedIndex,
+          selectedItemColor: mainColor,
+          unselectedItemColor: Colors.grey,
+          showUnselectedLabels: true,
+          onTap:_onItemTapped,
+        )
       
     );
   }

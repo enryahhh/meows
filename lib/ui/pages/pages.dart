@@ -20,4 +20,6 @@ part 'detail_article_page.dart';
 part 'new_post_page.dart';
 part 'setting_page.dart';
 part 'post_detail_page.dart';
+part 'profile_page.dart';
+part 'list_post_page.dart';
 

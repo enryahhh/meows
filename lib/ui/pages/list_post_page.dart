@@ -1,30 +1,41 @@
 part of 'pages.dart';
 
-class PostDetailPage extends StatefulWidget {
-  const PostDetailPage({Key? key}) : super(key: key);
+class ListPostPage extends StatefulWidget {
+  const ListPostPage({ Key? key }) : super(key: key);
 
   @override
-  _PostDetailPageState createState() => _PostDetailPageState();
+  ListPostPageState createState() => ListPostPageState();
 }
 
-class _PostDetailPageState extends State<PostDetailPage> {
-  final TextEditingController _msgTextController = new TextEditingController();
-  FocusNode _writingTextFocus = FocusNode();
+class ListPostPageState extends State<ListPostPage> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(),
-        body: Container(
-            child: FutureBuilder(
-                builder: (ctx, AsyncSnapshot snapshot) {
-                  if (snapshot.hasData) {
-                    return Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: SingleChildScrollView(
-                              child: Container(
+    return SingleChildScrollView(
+      child:Container(
+        padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+        child: Column(
+          children:[
+            SizedBox(height:20),
+            Text("Postingan Terbaru", style: darkPurpleTextFont.copyWith(fontSize: 26)),
+            FutureBuilder(
+                builder: (context, AsyncSnapshot snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(child: CircularProgressIndicator());
+                  } else {
+                    print(snapshot.data);
+                    if (snapshot.data.length == 0) {
+                      return Text("Ooops something went wrong");
+                    } else {
+                      return Container(
+                        height: SizeDevice(context).heightDevice - 140,
+                        child: ListView.builder(
+                            itemCount: snapshot.data.length,
+                            itemBuilder: (ctx, i) {
+                              return GestureDetector(
+                                onTap: (){
+                                  Navigator.push(context, MaterialPageRoute(builder: (ctx)=>PostDetailPage()));
+                                },
+                                child: Container(
                                   margin: EdgeInsets.only(top: 5),
                                   width: double.infinity,
                                   color: Colors.grey,
@@ -64,7 +75,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
                                                               CrossAxisAlignment
                                                                   .start,
                                                           children: [
-                                                            Text("username",
+                                                            Text("${snapshot.data[i].user.name}",
                                                                 style: darkPurpleTextFont.copyWith(
                                                                     fontSize:
                                                                         16,
@@ -86,15 +97,11 @@ class _PostDetailPageState extends State<PostDetailPage> {
                                           ),
                                           Container(
                                             child: Text(
-                                                "asdsasdasdasdasdasdasd",
+                                                "${snapshot.data[i].title}",
                                                 textAlign: TextAlign.start,
                                                 style: TextStyle(fontSize: 20)),
                                           ),
                                           SizedBox(height: 15),
-                                          Text(
-                                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur fringilla quis odio egestas mattis. Donec at dui aliquet, egestas lacus a, congue lacus. Cras id tempor sem. Maecenas augue arcu, ",
-                                              style: TextStyle(height: 1.5)),
-                                          SizedBox(height: 20),
                                           Padding(
                                             padding: const EdgeInsets.only(
                                                 top: 6.0, bottom: 2.0),
@@ -138,7 +145,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
                                                                       .only(
                                                                   left: 8.0),
                                                           child: Text(
-                                                            'Comment ( 2 )',
+                                                            'Comment ( ${snapshot.data[i].commentsTotal} )',
                                                             style: TextStyle(
                                                                 fontSize: 16,
                                                                 fontWeight:
@@ -155,51 +162,20 @@ class _PostDetailPageState extends State<PostDetailPage> {
                                           )
                                         ]),
                                   ))),
-                            ),
-                          ),
-                          //  Container(
-                          //    color:Colors.red,
-                          //    child: Row(
-                          //     children:[
-                          //       Icon(Icons.pets_outlined),
-                          //       Text("(5)")
-                          //     ]
-                          //   ),
-                          //  ),
-
-                          _buildTextComposer()
-                        ]);
+                              );
+                            }),
+                      );
+                    }
                   }
-                  return Container();
+                  // return ListView.builder(
+                  //   itemCount: snapshot.data.,
+                  //   itemBuilder: )
+                  // return Text("asd");
                 },
-                future: PostServices().getPostDetail(1))),
-      ),
-    );
-  }
-
-  Widget _buildTextComposer() {
-    return new IconTheme(
-      data: new IconThemeData(color: Theme.of(context).accentColor),
-      child: new Container(
-        margin: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: new Row(
-          children: <Widget>[
-            new Flexible(
-              child: new TextField(
-                focusNode: _writingTextFocus,
-                controller: _msgTextController,
-                decoration:
-                    new InputDecoration.collapsed(hintText: "Write a comment"),
-              ),
-            ),
-            new Container(
-              margin: new EdgeInsets.symmetric(horizontal: 2.0),
-              child:
-                  new IconButton(icon: new Icon(Icons.send), onPressed: () {}),
-            ),
-          ],
+                future: PostServices().getListPost()),
+          ]
         ),
-      ),
+      )
     );
   }
 }
