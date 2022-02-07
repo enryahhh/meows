@@ -14,22 +14,31 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+  final AuthBloc _authBlc = AuthBloc();
   @override
   Widget build(BuildContext context) {
-    return StreamProvider.value(
-      value: AuthServices.userStream,
-      initialData: null,
+    return BlocProvider.value(
+      value: _authBlc,
       child: MultiBlocProvider(
         providers:[
+          BlocProvider(create: (_)=> AuthBloc()..add(AppStart())),
           BlocProvider(create: (_)=> UserBloc()),
-          BlocProvider(create: (_)=> PostBloc()..add(FetchPost())),
+          BlocProvider(create: (_)=> PostBloc()),
         ],
         child: MaterialApp(
           title: 'Meows Co',
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          home: SplashPage(),
+          home: BlocBuilder<AuthBloc, AuthState>(builder: (context,state){
+            print(state);
+            if(state is Authenticated){
+              return HomePage();
+            }else if(state is Unauthenticated){
+              return SplashPage();
+            }
+            return Container();
+          }),
         ),
       ),
     );

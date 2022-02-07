@@ -1,7 +1,6 @@
 part of 'extensions.dart';
 
 class ConfigAPI {
-   
   //  var options = BaseOptions(headers:{
   //     'Accept' : 'application/json',
   //     'Authorization' : 'Bearer' + token
@@ -12,6 +11,8 @@ class ConfigAPI {
       'Accept': 'application/json',
       'Authorization': 'Bearer ' + token
     }));
+    print(token);
+    _dio.interceptors.add(CustomInterceptor());
     return _dio;
   //}
   }

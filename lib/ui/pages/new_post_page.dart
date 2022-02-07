@@ -18,7 +18,7 @@ class _NewPostPageState extends State<NewPostPage> {
     return SafeArea(
       child: Scaffold(
         floatingActionButton: ElevatedButton(onPressed: () async {
-          await PostServices.newPost(titleCtrl.text,contentCtrl.text);
+          await PostServices().newPost(titleCtrl.text,contentCtrl.text);
         }, child: Text('Save')),
         body: SingleChildScrollView(
           child: Container(

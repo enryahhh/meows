@@ -5,11 +5,6 @@ class SplashPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    User? firebaseUser = Provider.of<User?>(context);
-
-    if (firebaseUser != null) {
-      return HomePage();
-    } else {
       return Scaffold(
         body: Container(
           margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
@@ -70,6 +65,5 @@ class SplashPage extends StatelessWidget {
           ),
         ),
       );
-    }
   }
 }

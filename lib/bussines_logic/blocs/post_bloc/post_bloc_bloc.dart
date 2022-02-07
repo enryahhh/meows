@@ -8,7 +8,9 @@ part 'post_bloc_event.dart';
 part 'post_bloc_state.dart';
 
 class PostBloc extends Bloc<PostBlocEvent, PostState> {
+  PostServices _postServices = new PostServices();
   PostBloc() : super(const PostState()) {
+    
     on<FetchPost>((event, emit) => _onPostFetched(event, emit));
 
     on<CreatePost>((event,emit)=>_onPostCreated(event, emit));
@@ -16,8 +18,8 @@ class PostBloc extends Bloc<PostBlocEvent, PostState> {
 
   Future<void> _onPostFetched(FetchPost event, Emitter<PostState> emit) async {
     emit(PostLoading());
-    // final posts = await PostServices().getListPost();
-    final posts = await PostServices().getListPostFb();
+    final posts = await _postServices.getListPost();
+    // final posts = await PostServices().getListPostFb();
     print(posts.length);
     if(posts.length == 0){
       emit(PostLoadFailure());
@@ -27,7 +29,7 @@ class PostBloc extends Bloc<PostBlocEvent, PostState> {
   }
 
   Future<void> _onPostCreated(CreatePost event, Emitter<PostState> emit) async{
-    await PostServices.newPost(event.post.title, event.post.content);
+    _postServices.newPost(event.post.title, event.post.content);
     emit(PostLoading());
     emit(PostCreateSuccess());
   }

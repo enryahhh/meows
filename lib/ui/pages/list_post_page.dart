@@ -38,7 +38,7 @@ class ListPostPageState extends State<ListPostPage> {
                 return Center(child: CircularProgressIndicator());
               }
               if(state is PostLoadFailure){
-                return Text("oops somtehing went wrong");
+                return NoConnection();
               }
               if (state is PostLoaded) {
                 return Container(

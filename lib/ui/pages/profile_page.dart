@@ -144,7 +144,7 @@ class ProfilePage extends StatelessWidget {
     Widget continueButton = TextButton(
       child: Text("Ya"),
       onPressed: () async {
-        await AuthServices.signOut();
+        context.read<AuthBloc>().add(LogoutEvent());
         Navigator.of(context)
             .pushReplacement(MaterialPageRoute(builder: (ctx) => SignInPage()));
       },

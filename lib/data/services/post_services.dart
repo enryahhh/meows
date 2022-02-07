@@ -1,31 +1,23 @@
 part of 'services.dart';
 
-Dio dio = ConfigAPI().getDio("lSdsa2RibP6bRvURUy6kIB7mVHS53dWsPK1u6hDV");
 
 class PostServices {
-  static CollectionReference postCollection =
-      FirebaseFirestore.instance.collection('post');
-  Future<List<Post>> getListPostFb() async {
-    QuerySnapshot snapshot = await postCollection.get();
-    var tes =
-        snapshot.docs.map((e) => e.data() as Map<String, dynamic>).toList();
-    // var mapped = tes.map((e) => e);
-    print(tes);
-    return tes
-        .map((e) => Post(
-            postId: 1,
-            userId: e['user_id'],
-            title: e['title'],
-            content:'asdasd',
-            likesTotal: 0,
-            commentsTotal: 0,
-            user: UserAPI(id: 1, name: "tes")))
-        .toList();
-    // return snapshot.docs.map((e) => Post(postId: e.data['id'], userId: userId, title: title, content: content, likesTotal: likesTotal, commentsTotal: commentsTotal, user: user));
+
+ Dio dio = Dio();
+  PostServices(){
+    print('ini set Token di post');
+  }
+  Future<void> setToken() async{
+    String _token = await AuthAPIServices().getToken();
+    dio = ConfigAPI().getDio(_token);
   }
 
   Future<List<Post>> getListPost() async {
     late final List post;
+    // String token = await AuthAPIServices().getToken();
+    //   dio = ConfigAPI().getDio(token);
+      await setToken();
+    print("ini get post");
     try {
       // final response = await http.get(Uri.parse(urlApi + "post"), headers: {
       //   'Authorization': 'Bearer lSdsa2RibP6bRvURUy6kIB7mVHS53dWsPK1u6hDV',
@@ -47,18 +39,20 @@ class PostServices {
       //   UserAPI.fromJson(e['user']);
 
       // });
-      print(response.data);
+      print("ini get post ${response.data}");
       // debugPrint(tes2.toString());
-    } catch (e) {
-      // if (e.response != null) {
-      //   print('asssw');
-      //   print(e.response!.data);
-      //   print(e.response!.statusCode);
-      // } else {
-      //   // Something happened in setting up or sending the request that triggered an Error
-      //   print(e.requestOptions);
-      //   print(e.message);
-      // }
+    } on DioError catch (e) {
+      print("ini error");
+          if (e.response != null) {
+            print(e.response!.data);
+            print(e.response!.headers);
+            print(e.response!.requestOptions);
+          
+      } else {
+        // Something happened in setting up or sending the request that triggered an Error
+        print(e.requestOptions);
+        print(e.message);
+      }
       post = [];
 
       print(e.toString());
@@ -66,7 +60,8 @@ class PostServices {
     return post.map((e) => Post.fromJson(e)).toList();
   }
 
-  static Future<void> newPost(String title, String content) async {
+   Future<void> newPost(String title, String content) async {
+     await setToken();
     try {
       final response = await dio
           .post(urlApi + "post", data: {'title': title, 'content': content});
@@ -79,6 +74,7 @@ class PostServices {
   Future<PostDetail> getPostDetail(int id) async {
     late final PostDetail postD;
     late List commentsData;
+    await setToken();
     try {
       final Response response = await dio.get(urlApi + "post/" + id.toString());
       var result = response.data['data']['post'];
