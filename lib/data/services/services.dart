@@ -7,6 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../extension/extensions.dart';
 import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 part 'auth_services.dart';
 part 'user_services.dart';

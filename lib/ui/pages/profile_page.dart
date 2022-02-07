@@ -2,7 +2,7 @@ part of 'pages.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
-
+  
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -31,8 +31,7 @@ class ProfilePage extends StatelessWidget {
                       decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           image: DecorationImage(
-                              image: AssetImage(
-                                  "assets/images/user_pic.png"),
+                              image: AssetImage("assets/images/user_pic.png"),
                               fit: BoxFit.cover)),
                     ),
                     Expanded(
@@ -60,79 +59,112 @@ class ProfilePage extends StatelessWidget {
               Container(
                   child: Card(
                       child: Container(
-                        padding:EdgeInsets.all(15),
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                    Container(
-                        child: Text('konten Saya')),
-                        SizedBox(height:10),
-                    Container(
-                        child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(right:8.0),
-                                child: Icon(Icons.favorite,color: Colors.red,),
-                              ),
-                              Expanded(flex:2,child: Text("Favorit")),
-                              Icon(Icons.arrow_forward_ios_sharp),
-                            ]),
-                    ),
-                    Container(
-                      margin:EdgeInsets.only(top:15),
-                        child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(right:8.0),
-                                child: Icon(Icons.download),
-                              ),
-                              Expanded(flex:2,child: Text("Download")),
-                              Icon(Icons.arrow_forward_ios_sharp),
-                            ]),
-                    )
-                  ]),
-                      ))),
+                padding: EdgeInsets.all(15),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(child: Text('konten Saya')),
+                      SizedBox(height: 10),
                       Container(
+                        child: Row(mainAxisSize: MainAxisSize.max, children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 8.0),
+                            child: Icon(
+                              Icons.favorite,
+                              color: Colors.red,
+                            ),
+                          ),
+                          Expanded(flex: 2, child: Text("Favorit")),
+                          Icon(Icons.arrow_forward_ios_sharp),
+                        ]),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(top: 15),
+                        child: Row(mainAxisSize: MainAxisSize.max, children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 8.0),
+                            child: Icon(Icons.download),
+                          ),
+                          Expanded(flex: 2, child: Text("Download")),
+                          Icon(Icons.arrow_forward_ios_sharp),
+                        ]),
+                      )
+                    ]),
+              ))),
+              Container(
                   child: Card(
                       child: Container(
-                        padding:EdgeInsets.all(15),
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                    Container(
-                        child: Text('lainnya')),
-                        SizedBox(height:10),
-                    Container(
-                        child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(right:8.0),
-                                child: Icon(Icons.settings),
-                              ),
-                              Expanded(flex:2,child: Text("Pengaturan")),
-                              Icon(Icons.arrow_forward_ios_sharp),
-                            ]),
-                    ),
-                    Container(
-                      margin:EdgeInsets.only(top:15),
-                        child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(right:8.0),
-                                child: Icon(Icons.logout),
-                              ),
-                              Expanded(flex:2,child: Text("Keluar")),
-                              Icon(Icons.arrow_forward_ios_sharp),
-                            ]),
-                    )
-                  ]),
-                      )))
+                padding: EdgeInsets.all(15),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(child: Text('lainnya')),
+                      SizedBox(height: 10),
+                      Container(
+                        child: Row(mainAxisSize: MainAxisSize.max, children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 8.0),
+                            child: Icon(Icons.settings),
+                          ),
+                          Expanded(flex: 2, child: Text("Pengaturan")),
+                          Icon(Icons.arrow_forward_ios_sharp),
+                        ]),
+                      ),
+                      GestureDetector(
+                        onTap:(){
+                          showAlertDialog(context);
+                          print('tes logout');
+                        },
+                        child: Container(
+                          margin: EdgeInsets.only(top: 15),
+                          child: Row(mainAxisSize: MainAxisSize.max, children: [
+                            Padding(
+                              padding: const EdgeInsets.only(right: 8.0),
+                              child: Icon(Icons.logout),
+                            ),
+                            Expanded(flex: 2, child: Text("Keluar")),
+                            Icon(Icons.arrow_forward_ios_sharp),
+                          ]),
+                        ),
+                      )
+                    ]),
+              )))
             ])),
       ),
     );
   }
+  Future<void> showAlertDialog(BuildContext context) {
+    // set up the buttons
+    Widget cancelButton = TextButton(
+      child: Text("Tidak"),
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+    );
+    Widget continueButton = TextButton(
+      child: Text("Ya"),
+      onPressed: () async {
+        await AuthServices.signOut();
+        Navigator.of(context)
+            .pushReplacement(MaterialPageRoute(builder: (ctx) => SignInPage()));
+      },
+    );
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Konfirmasi"),
+      content: Text("Anda Yakin Akan Logout?"),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+    // show the dialog
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+  
 }

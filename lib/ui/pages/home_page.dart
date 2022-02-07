@@ -64,6 +64,9 @@ class _HomePageState extends State<HomePage>
       _selectedIndex = index;
       pageController.jumpToPage(index);
     });
+    if(_selectedIndex == 2){
+      context.read<PostBloc>().add(FetchPost());
+    }
   }
 
   @override
@@ -79,16 +82,16 @@ class _HomePageState extends State<HomePage>
   Widget build(BuildContext context) {
     return Scaffold(
         
-        floatingActionButton: Padding(
-          padding: const EdgeInsets.only(bottom:45.0),
-          child: ElevatedButton(
-              onPressed: () async {
-                await AuthServices.signOut();
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (ctx) => SignInPage()));
-              },
-              child: Icon(Icons.logout)),
-        ),
+        // floatingActionButton: Padding(
+        //   padding: const EdgeInsets.only(bottom:45.0),
+        //   child: ElevatedButton(
+        //       onPressed: () async {
+        //         await AuthServices.signOut();
+        //         Navigator.of(context).pushReplacement(
+        //             MaterialPageRoute(builder: (ctx) => SignInPage()));
+        //       },
+        //       child: Icon(Icons.logout)),
+        // ),
         // body: CustomBottomNavigation(
         //     currentPage: currentPage,
         //     tabController: tabController,
