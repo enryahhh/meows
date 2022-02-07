@@ -21,7 +21,8 @@ class MyApp extends StatelessWidget {
       initialData: null,
       child: MultiBlocProvider(
         providers:[
-          BlocProvider(create: (_)=> UserBloc())
+          BlocProvider(create: (_)=> UserBloc()),
+          BlocProvider(create: (_)=> PostBloc()..add(FetchPost())),
         ],
         child: MaterialApp(
           title: 'Meows Co',

@@ -1,17 +1,21 @@
 part of 'post_bloc_bloc.dart';
 
-abstract class PostBlocState extends Equatable {
-  const PostBlocState();
+ class PostState extends Equatable {
+  const PostState();
   
   @override
   List<Object> get props => [];
 }
 
-class PostBlocInitial extends PostBlocState {}
+class PostInitial extends PostState {}
 
-class PostLoading extends PostBlocState {}
+class PostCreateSuccess extends PostState {
+  
+}
 
-class PostLoaded extends PostBlocState {
+class PostLoading extends PostState {}
+
+class PostLoaded extends PostState {
   final List<Post> post;
 
   PostLoaded(this.post);
@@ -19,3 +23,5 @@ class PostLoaded extends PostBlocState {
   @override
   List<Object> get props => [post];
 }
+
+class PostLoadFailure extends PostState {}

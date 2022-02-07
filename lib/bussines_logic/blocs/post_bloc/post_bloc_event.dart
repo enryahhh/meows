@@ -8,7 +8,7 @@ abstract class PostBlocEvent extends Equatable {
 }
 
 class FetchPost extends PostBlocEvent {
-
+  
 }
 
 class CreatePost extends PostBlocEvent {
