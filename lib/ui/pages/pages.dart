@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:html_editor_enhanced/html_editor.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:intl/intl.dart';
+import 'package:timeago/timeago.dart' as timeago;
 import 'package:meows_co/data/models/models.dart';
 import 'package:meows_co/data/services/services.dart';
 import 'package:meows_co/ui/widgets/widgets.dart';
@@ -24,5 +26,6 @@ part 'setting_page.dart';
 part 'post_detail_page.dart';
 part 'profile_page.dart';
 part 'list_post_page.dart';
+part 'list_article_page.dart';
 part 'coming_soon_page.dart';
 

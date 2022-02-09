@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage>
 
   pages = [
     MainPage(tes: tes),
-    SearchPage(color:Colors.green),
+    ListArticlePage(),
     ListPostPage(),
     ProfilePage(),
     // SearchPage(color:Colors.green),
@@ -65,7 +65,7 @@ class _HomePageState extends State<HomePage>
       pageController.jumpToPage(index);
     });
     if(_selectedIndex == 2){
-      context.read<PostBloc>().add(FetchPost());
+      context.read<PostBloc>().add(FetchPost(true));
     }
   }
 

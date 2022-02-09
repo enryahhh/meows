@@ -37,6 +37,24 @@ class AuthAPIServices {
     return token;
   }
 
+  Future<bool> hasUser() async {
+    final SharedPreferences prefs = await _prefs;
+    if (prefs.getString('user') != null) {
+      return true;
+    }
+    return false;
+  }
+
+  Future<UserAPI> getUserPref() async {
+    final SharedPreferences prefs = await _prefs;
+    late UserAPI user;
+    if(await hasUser()){
+      user = UserAPI.fromJson(json.decode(prefs.getString('user')!));
+    }
+    return user;
+  }
+
+
   Future<AuthResult> register(String nama,String email,String password,String confirmpass) async{
     _dio.interceptors.add(CustomInterceptor());
     late AuthResult authResult;
@@ -70,6 +88,7 @@ class AuthAPIServices {
 
   Future<AuthResult> login(String email,String password) async{
     _dio.interceptors.add(CustomInterceptor());
+    final SharedPreferences prefs = await _prefs;
     late AuthResult authResult;
     try{
       final result = await _dio.post(urlApi + "auth/login",data: {
@@ -78,7 +97,9 @@ class AuthAPIServices {
       });
       persistToken(result.data['data']['token']);
       print(result.data['data']);
-      authResult = AuthResult(status:result.data['status'],message: result.data['message']);
+      UserAPI user = UserAPI.fromJson(result.data['data']['user']);
+      authResult = AuthResult(status:result.data['status'],message: result.data['message'],user:user);
+      await prefs.setString('user', json.encode(result.data['data']['user']));
     }on DioError catch(e){
       print(e);
       print(e.toString());
@@ -97,12 +118,14 @@ class AuthAPIServices {
   }
 
   Future<void> logout()async{
+    final SharedPreferences prefs = await _prefs;
     try{
       String token = await getToken();
       _dio = ConfigAPI().getDio(token);
       final res = await _dio.post(urlApi + "auth/logout");
       if(res.data['message'] != null){
         deleteToken();
+        await prefs.remove('user');
       }
     }catch(e){
       print(e.toString());
@@ -114,5 +137,6 @@ class AuthResult {
   final String? status;
   final String? message;
   final String? token;
-  AuthResult({this.status, this.message, this.token});
+  final UserAPI? user;
+  AuthResult({this.status, this.message, this.token,this.user});
 }

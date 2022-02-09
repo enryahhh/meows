@@ -9,7 +9,8 @@ class PostDetail extends Post{
     content: post.content,
     commentsTotal: post.commentsTotal,
     likesTotal: post.likesTotal,
-    user:post.user
+    user:post.user,
+    createdAt: post.createdAt
   );
   
   @override

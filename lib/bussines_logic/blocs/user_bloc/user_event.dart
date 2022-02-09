@@ -8,11 +8,15 @@ abstract class UserEvent extends Equatable {
 }
 
 class LoadUser extends UserEvent{
-  final String id;
+  final String token;
 
-  LoadUser(this.id);
+  LoadUser(this.token);
   @override
-  List<Object> get props => [id];
+  List<Object> get props => [token];
+}
+
+class GetUserPref extends UserEvent{
+  
 }
 
 class SignOut extends UserEvent{

@@ -1,8 +1,8 @@
 part of 'pages.dart';
 
 class PostDetailPage extends StatefulWidget {
-  const PostDetailPage({Key? key}) : super(key: key);
-
+  final Post post;
+  PostDetailPage({Key? key, required this.post}) : super(key: key);
   @override
   _PostDetailPageState createState() => _PostDetailPageState();
 }
@@ -10,176 +10,82 @@ class PostDetailPage extends StatefulWidget {
 class _PostDetailPageState extends State<PostDetailPage> {
   final TextEditingController _msgTextController = new TextEditingController();
   FocusNode _writingTextFocus = FocusNode();
+
+  @override
+  void initState() {
+    context.read<CommentBloc>().add(GetComment(widget.post));
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(),
-        body: Container(
-            child: FutureBuilder(
-                builder: (ctx, AsyncSnapshot snapshot) {
-                  if (snapshot.hasData) {
-                    return Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: SingleChildScrollView(
-                              child: Container(
-                                  margin: EdgeInsets.only(top: 5),
-                                  width: double.infinity,
-                                  color: Colors.grey,
-                                  child: Card(
-                                      child: Padding(
-                                    padding: const EdgeInsets.all(12.0),
-                                    child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Row(children: [
-                                              Container(
-                                                  child: Row(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                    Container(
-                                                      width: 45,
-                                                      height: 45,
-                                                      decoration: BoxDecoration(
-                                                          shape:
-                                                              BoxShape.circle,
-                                                          image: DecorationImage(
-                                                              image: AssetImage(
-                                                                  "assets/images/user_pic.png"),
-                                                              fit: BoxFit
-                                                                  .cover)),
-                                                    ),
-                                                    Container(
-                                                        margin: EdgeInsets.only(
-                                                            left: 10),
-                                                        child: Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Text("username",
-                                                                style: darkPurpleTextFont.copyWith(
-                                                                    fontSize:
-                                                                        16,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .normal)),
-                                                            SizedBox(height: 5),
-                                                            Text("3 hours ago",
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        11),
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .left)
-                                                          ],
-                                                        ))
-                                                  ]))
-                                            ]),
-                                          ),
-                                          Container(
-                                            child: Text(
-                                                "asdsasdasdasdasdasdasd",
-                                                textAlign: TextAlign.start,
-                                                style: TextStyle(fontSize: 20)),
-                                          ),
-                                          SizedBox(height: 15),
-                                          Text(
-                                              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur fringilla quis odio egestas mattis. Donec at dui aliquet, egestas lacus a, congue lacus. Cras id tempor sem. Maecenas augue arcu, ",
-                                              style: TextStyle(height: 1.5)),
-                                          SizedBox(height: 20),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                top: 6.0, bottom: 2.0),
-                                            child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceAround,
-                                                children: <Widget>[
-                                                  GestureDetector(
-                                                    onTap: () => {},
-                                                    child: Row(
-                                                      children: <Widget>[
-                                                        Icon(Icons.thumb_up,
-                                                            size: 18,
-                                                            color:
-                                                                Colors.black),
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .only(
-                                                                  left: 8.0,
-                                                                  right: 8.0),
-                                                          child: Text(
-                                                            'Like ( 2 )',
-                                                            style: TextStyle(
-                                                                fontSize: 16,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                color: Colors
-                                                                    .black),
-                                                          ),
-                                                        ),
-                                                        Icon(Icons.comment_bank,
-                                                            size: 18,
-                                                            color:
-                                                                Colors.black),
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .only(
-                                                                  left: 8.0),
-                                                          child: Text(
-                                                            'Comment ( 2 )',
-                                                            style: TextStyle(
-                                                                fontSize: 16,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                color: Colors
-                                                                    .black),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ]),
-                                          )
-                                        ]),
-                                  ))),
-                            ),
-                          ),
-                          //  Container(
-                          //    color:Colors.red,
-                          //    child: Row(
-                          //     children:[
-                          //       Icon(Icons.pets_outlined),
-                          //       Text("(5)")
-                          //     ]
-                          //   ),
-                          //  ),
-
-                          _buildTextComposer()
-                        ]);
-                  }
-                  return Container();
-                },
-                future: PostServices().getPostDetail(1))),
+        body: Stack(
+          children: [
+            SingleChildScrollView(
+                physics: AlwaysScrollableScrollPhysics(),
+                child: Container(
+                  padding: EdgeInsets.all(8),
+                  child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CardPost(
+                          post: widget.post,
+                          isDetail:true,
+                        ),
+                        Padding(
+                            padding: EdgeInsets.all(5),
+                            child: Text(
+                                "Comments (${widget.post.commentsTotal})",
+                                style:
+                                    darkPurpleTextFont.copyWith(fontSize: 18))),
+                        BlocConsumer<CommentBloc, CommentState>(
+                          listener: (context,state){
+                            if(state is CommentCreateSuccess){
+                              context.read<CommentBloc>().add(GetComment(widget.post));
+                            }
+                          },
+                            builder: (context, state) {
+                          if (state is CommentLoadFailure) {
+                            return Text("error load");
+                          }
+                          if (state is CommentLoaded) {
+                            if (state.comments.length != 0) {
+                              return ListView.builder(
+                                  itemCount: state.comments.length,
+                                  shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  itemBuilder: (ctx, i) {
+                                    return CardComment(
+                                        comment: state.comments[i]);
+                                  });
+                            } else {
+                              return Text("Belum ada komentar");
+                            } 
+                          } else if(state is CommentCreateSuccess){
+                              return CardComment(comment:state.comment);
+                          }
+                          return CircularProgressIndicator();
+                        }),
+                      ]),
+                )),
+            Align(
+                alignment: Alignment.bottomCenter, child: Container(
+                  color:mainColor,
+                  child:_buildTextComposer()
+                ))
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildTextComposer() {
     return new IconTheme(
-      data: new IconThemeData(color: Theme.of(context).accentColor),
+      data: new IconThemeData(color: Colors.white),
       child: new Container(
         margin: const EdgeInsets.symmetric(horizontal: 8.0),
         child: new Row(
@@ -189,13 +95,15 @@ class _PostDetailPageState extends State<PostDetailPage> {
                 focusNode: _writingTextFocus,
                 controller: _msgTextController,
                 decoration:
-                    new InputDecoration.collapsed(hintText: "Write a comment"),
+                    new InputDecoration.collapsed(hintText: "Write a comment",hintStyle: whiteTextFont),
               ),
             ),
             new Container(
               margin: new EdgeInsets.symmetric(horizontal: 2.0),
               child:
-                  new IconButton(icon: new Icon(Icons.send), onPressed: () {}),
+                  new IconButton(icon: new Icon(Icons.send), onPressed: () {
+                    context.read<CommentBloc>().add(CreateComment(_msgTextController.text, widget.post.postId));
+                  }),
             ),
           ],
         ),

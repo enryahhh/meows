@@ -1,6 +1,6 @@
 part of 'user_bloc.dart';
 
-abstract class UserState extends Equatable {
+ class UserState extends Equatable {
   const UserState();
   
   @override
@@ -12,7 +12,7 @@ class UserInitial extends UserState {}
 class UserLoading extends UserState {}
 
 class UserLoaded extends UserState{
-  final UserModel user;
+  final UserAPI user;
 
   UserLoaded(this.user);
 

@@ -1,12 +1,14 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meows_co/bussines_logic/blocs/blocs.dart';
+import 'package:meows_co/data/models/models.dart';
 import 'package:meows_co/data/services/services.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
+  
   AuthBloc() : super(AuthInitial()) {
     on<AppStart>((event, emit) => _onAppStarted(event, emit));
 

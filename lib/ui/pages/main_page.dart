@@ -25,46 +25,22 @@ class MainPage extends StatelessWidget {
             // Container(
             //     margin: EdgeInsets.only(top: 23, bottom: 8),
             //     child: Text("Jum'at , 22 Januari 2022")),
-            SizedBox(height:20),
-            //Text("Postingan Terbaru", style: darkPurpleTextFont.copyWith(fontSize: 26)),
-            // FutureBuilder(
-            //     builder: (context, AsyncSnapshot snapshot) {
-            //       if (!snapshot.hasData) {
-            //         return CircularProgressIndicator();
-            //       } else {
-            //         print(snapshot.data);
-            //         if (snapshot.data.length == 0) {
-            //           return Text("Ooops something went wrong");
-            //         } else {
-            //           return Container(
-            //             height: 220,
-            //             child: ListView.builder(
-            //                 itemCount: snapshot.data.length,
-            //                 itemBuilder: (ctx, i) {
-            //                   return GestureDetector(
-            //                     onTap: (){
-            //                       Navigator.push(context, MaterialPageRoute(builder: (ctx)=>PostDetailPage()));
-            //                     },
-            //                     child: Card(
-            //                         child: Container(
-            //                             width: double.infinity,
-            //                             padding: EdgeInsets.all(20),
-            //                             child:
-            //                                 Text("${snapshot.data[i].title}"))),
-            //                   );
-            //                 }),
-            //           );
-            //         }
-            //       }
-                  // return ListView.builder(
-                  //   itemCount: snapshot.data.,
-                  //   itemBuilder: )
-                  // return Text("asd");
-               // },
-               // future: PostServices().getListPost()),
+            SizedBox(height: 20),
+            BlocBuilder<UserBloc,UserState>(builder: (context,state){
+              print(state);
+              if(state is UserLoaded){
+                return Text("Hai ${state.user.name}",style:darkPurpleTextFont.copyWith(fontSize:23));
+              }else if(state is UserLoading){
+                return Text("....");
+              }
+              return Text("Guest",style:darkPurpleTextFont.copyWith(fontSize:23));
+            }),
+            // Text("Hai Username",style:darkPurpleTextFont.copyWith(fontSize:23)),
+            SizedBox(height: 20),
             GestureDetector(
-              onTap:(){
-                Navigator.of(context).push(MaterialPageRoute(builder:(_) => ComingSoonPage()));
+              onTap: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (_) => ComingSoonPage()));
               },
               child: Container(
                 width: 354,
@@ -75,32 +51,48 @@ class MainPage extends StatelessWidget {
                       Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Container(
-                              width: 150,
-                              height: 164,
-                              color: Color(0xFF8ADFF5),
-                            ),
-                            Container(
-                              width: 148,
-                              height: 125,
-                              // margin: EdgeInsets.only(top:16),
-                              color: Color(0xFFED5F5F),
-                            ),
+                            createKotakMenu(
+                                context, 150, 164, Color(0xFF8ADFF5), [
+                              Flexible(
+                                  child: Image.asset(
+                                "assets/images/pet.png",
+                                height: SizeDevice(context).heightDevice * 0.12,
+                              )),
+                              Text("Kucingku", style: darkPurpleTextFont),
+                              Text("4")
+                            ],Icon(Icons.arrow_forward)),
+                            createKotakMenu(
+                                context, 148, 125, Color(0xFFED5F5F), [
+                              Flexible(
+                                  child: Image.asset(
+                                "assets/images/paw.png",
+                                height: SizeDevice(context).heightDevice * 0.09,
+                              )),
+                              Text("Kesehatan", style: whiteTextFont),
+                            ],Icon(Icons.arrow_forward,color:Colors.white)),
                           ]),
                       // SizedBox(width: 17,),
                       Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Container(
-                            width: 148,
-                            height: 125,
-                            margin: EdgeInsets.only(bottom: 16),
-                            color: Color(0xFF024873),
-                          ),
-                          Container(
-                            width: 150,
-                            height: 164,
-                            color: mainColor,
-                          ),
+                          createKotakMenu(
+                                context, 148, 125, Color(0xFF024873), [
+                              Flexible(
+                                  child: Image.asset(
+                                "assets/images/growth.png",
+                                height: SizeDevice(context).heightDevice * 0.09,
+                              )),
+                              Flexible(child: Text("Pertumbuhan ", style: whiteTextFont)),
+                            ],Icon(Icons.arrow_forward,color:Colors.white)),
+                            createKotakMenu(
+                                context, 150, 164, mainColor, [
+                              Flexible(
+                                  child: Image.asset(
+                                "assets/images/pet-bowl.png",
+                                // height: SizeDevice(context).heightDevice * 0.5,
+                              )),
+                              Flexible(child: Text("Pakan Kucing ", style: darkPurpleTextFont)),
+                            ],Icon(Icons.arrow_forward,color:Colors.black)),
                         ],
                       )
                     ]),
@@ -140,5 +132,24 @@ class MainPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget createKotakMenu(BuildContext context, double? width, double? height,
+      Color color, List<Widget> isi,Icon iconnya) {
+    return Container(
+        width: width,
+        height: height,
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        color: color,
+        child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: isi),
+                  iconnya
+            ]));
   }
 }

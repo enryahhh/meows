@@ -24,4 +24,15 @@ class PostLoaded extends PostState {
   List<Object> get props => [post];
 }
 
+class PostDetailLoaded extends PostState{
+  final PostDetail postDetail;
+
+  PostDetailLoaded(this.postDetail);
+
+  @override
+  List<Object> get props => [postDetail];
+}
+
 class PostLoadFailure extends PostState {}
+
+class ArticleLoaded extends PostState{}

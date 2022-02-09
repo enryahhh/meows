@@ -8,7 +8,12 @@ abstract class PostBlocEvent extends Equatable {
 }
 
 class FetchPost extends PostBlocEvent {
-  
+  final bool isArticle;
+
+  FetchPost(this.isArticle);
+
+  @override
+  List<Object> get props => [isArticle];
 }
 
 class CreatePost extends PostBlocEvent {
@@ -18,6 +23,15 @@ class CreatePost extends PostBlocEvent {
     @override
     List<Object> get props => [post];
 
+}
+
+class FetchDetailPost extends PostBlocEvent{
+  final int idPost;
+
+  FetchDetailPost(this.idPost);
+
+  @override
+  List<Object> get props => [idPost];
 }
 
 class CommentPost extends PostBlocEvent {

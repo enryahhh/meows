@@ -24,6 +24,7 @@ class Post extends Equatable {
   final int likesTotal;
   final int commentsTotal;
   final UserAPI user;
+  final String createdAt;
 
   Post(
       {required this.postId,
@@ -32,7 +33,7 @@ class Post extends Equatable {
       required this.content,
       // required this.imgPost,
       required this.likesTotal,
-      required this.commentsTotal,required this.user});
+      required this.commentsTotal,required this.user, required this.createdAt});
 
   factory Post.fromJson(Map<String, dynamic> json) => Post(
       postId: json['id'],
@@ -41,7 +42,8 @@ class Post extends Equatable {
       content: json['content'],
       likesTotal:json['total_likes'],
       commentsTotal:json['total_comments'],
-      user: UserAPI.fromJson(json['user']));
+      user: UserAPI.fromJson(json['user']),
+      createdAt:json['created_at']);
 
   @override
   // TODO: implement props

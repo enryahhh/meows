@@ -13,6 +13,8 @@ class PostBloc extends Bloc<PostBlocEvent, PostState> {
     
     on<FetchPost>((event, emit) => _onPostFetched(event, emit));
 
+    on<FetchDetailPost>((event, emit) => _onPostDetailFetched(event, emit));
+
     on<CreatePost>((event,emit)=>_onPostCreated(event, emit));
   }
 
@@ -25,6 +27,18 @@ class PostBloc extends Bloc<PostBlocEvent, PostState> {
       emit(PostLoadFailure());
     }else{
       emit(PostLoaded(posts));
+    }
+  }
+
+  Future<void> _onPostDetailFetched(FetchDetailPost event, Emitter<PostState> emit) async {
+    emit(PostLoading());
+    final PostDetail? posts = await _postServices.getPostDetail(event.idPost);
+    // final posts = await PostServices().getListPostFb();
+    // print(posts);
+    if(posts == null){
+      emit(PostLoadFailure());
+    }else{
+      emit(PostDetailLoaded(posts));
     }
   }
 
