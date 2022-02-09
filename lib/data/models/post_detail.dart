@@ -8,7 +8,7 @@ class PostDetail extends Post{
     title: post.title,
     content: post.content,
     commentsTotal: post.commentsTotal,
-    likesTotal: post.likesTotal,
+    thumbnail: post.thumbnail,
     user:post.user,
     createdAt: post.createdAt
   );

@@ -1,7 +1,8 @@
 part of 'widgets.dart';
 
 class CardArticle extends StatelessWidget {
-  const CardArticle({Key? key}) : super(key: key);
+  final Post post;
+  CardArticle({Key? key,required this.post}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class CardArticle extends StatelessWidget {
                           BorderRadius.vertical(top: Radius.circular(15)),
                       image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: AssetImage('assets/images/thumb-article.jpg'))),
+                          image: post.thumbnail != null ? NetworkImage(post.thumbnail!) : AssetImage("assets/images/thumb-article.png") as ImageProvider)),
                 ),
               ),
               Padding(
@@ -49,7 +50,7 @@ class CardArticle extends StatelessWidget {
                             ),
                           ),
                           child: Text(
-                              "7 Bau yang tidak disukai kucing,dari buah hingga kotak pasir yang Kotor",
+                              post.title,
                               style: purpleTextFont)),
                     ),
                     Container(width: 40, child: Icon(Icons.more_vert_rounded))
@@ -62,7 +63,7 @@ class CardArticle extends StatelessWidget {
                       color: Color(0xfffE9EBFB),
                       margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                       padding: EdgeInsets.all(10),
-                      child: Text("Kucing", style: purpleTextFont))
+                      child: Text("Kesehatan", style: purpleTextFont))
                 ],
               )
             ]),

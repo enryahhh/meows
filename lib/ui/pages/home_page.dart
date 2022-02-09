@@ -20,20 +20,14 @@ class _HomePageState extends State<HomePage>
     Colors.blue
   ];
 
-  late final List<Widget> tes;
   late final List<Widget> pages;
 
   @override
   void initState() {
     pageController = PageController(initialPage: _selectedIndex);
-    tes = [
-    CardArticle(),
-    CardArticle(),
-    CardArticle()
-  ];
 
   pages = [
-    MainPage(tes: tes),
+    MainPage(),
     ListArticlePage(),
     ListPostPage(),
     ProfilePage(),
@@ -65,6 +59,8 @@ class _HomePageState extends State<HomePage>
       pageController.jumpToPage(index);
     });
     if(_selectedIndex == 2){
+      context.read<PostBloc>().add(FetchPost(false));
+    }else if(_selectedIndex == 1){
       context.read<PostBloc>().add(FetchPost(true));
     }
   }

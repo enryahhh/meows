@@ -39,6 +39,7 @@ class MyApp extends StatelessWidget {
           listener:(context,state){
             if(state is Authenticated){
               context.read<UserBloc>().add(GetUserPref());
+              context.read<PostBloc>().add(FetchPost(true));
             }
           },
           builder: (context,state){

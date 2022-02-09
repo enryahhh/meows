@@ -75,17 +75,17 @@ class _CardPostState extends State<CardPost> {
                       child: Row(
                         children: <Widget>[
                           Icon(Icons.thumb_up, size: 18, color: Colors.black),
-                          Padding(
-                            padding:
-                                const EdgeInsets.only(left: 8.0, right: 8.0),
-                            child: Text(
-                              'Like ( ${widget.post.likesTotal} )',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black),
-                            ),
-                          ),
+                          // Padding(
+                          //   padding:
+                          //       const EdgeInsets.only(left: 8.0, right: 8.0),
+                          //   child: Text(
+                          //     'Like ( ${widget.post.likesTotal} )',
+                          //     style: TextStyle(
+                          //         fontSize: 16,
+                          //         fontWeight: FontWeight.bold,
+                          //         color: Colors.black),
+                          //   ),
+                          // ),
                           Icon(Icons.comment_bank,
                               size: 18, color: Colors.black),
                           Padding(
