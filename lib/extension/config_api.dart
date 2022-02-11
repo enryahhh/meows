@@ -11,7 +11,7 @@ class ConfigAPI {
       'Accept': 'application/json',
       'Authorization': 'Bearer ' + token
     }));
-    print(token);
+    print("ini token ${token}");
     _dio.interceptors.add(CustomInterceptor());
     return _dio;
   //}

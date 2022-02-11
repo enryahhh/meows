@@ -2,7 +2,7 @@ part of 'pages.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
-  
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -35,23 +35,28 @@ class ProfilePage extends StatelessWidget {
                               fit: BoxFit.cover)),
                     ),
                     Expanded(
-                      child: Container(
-                          margin: EdgeInsets.only(left: 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("username",
-                                  style: darkPurpleTextFont.copyWith(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.normal)),
-                              SizedBox(height: 5),
-                              Text("Cat Master",
-                                  style: TextStyle(fontSize: 14),
-                                  textAlign: TextAlign.left)
-                            ],
-                          )),
-                    ),
+                        child: Container(
+                            margin: EdgeInsets.only(left: 10),
+                            child: BlocBuilder<UserBloc, UserState>(
+                                builder: (context, state) {
+                              if (state is UserLoaded) {
+                                return Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text("${state.user.name}",
+                                          style: darkPurpleTextFont.copyWith(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.normal)),
+                                      SizedBox(height: 5),
+                                      Text("Cat Master",
+                                          style: TextStyle(fontSize: 14),
+                                          textAlign: TextAlign.left)
+                                    ]);
+                              }
+                              return Text("...");
+                            }))),
                     Icon(Icons.edit),
                   ]),
                 ),
@@ -111,7 +116,7 @@ class ProfilePage extends StatelessWidget {
                         ]),
                       ),
                       GestureDetector(
-                        onTap:(){
+                        onTap: () {
                           showAlertDialog(context);
                           print('tes logout');
                         },
@@ -133,6 +138,7 @@ class ProfilePage extends StatelessWidget {
       ),
     );
   }
+
   Future<void> showAlertDialog(BuildContext context) {
     // set up the buttons
     Widget cancelButton = TextButton(
@@ -144,6 +150,7 @@ class ProfilePage extends StatelessWidget {
     Widget continueButton = TextButton(
       child: Text("Ya"),
       onPressed: () async {
+        // await AuthServices.signOut();
         context.read<AuthBloc>().add(LogoutEvent());
         Navigator.of(context)
             .pushReplacement(MaterialPageRoute(builder: (ctx) => SignInPage()));
@@ -166,5 +173,4 @@ class ProfilePage extends StatelessWidget {
       },
     );
   }
-  
 }

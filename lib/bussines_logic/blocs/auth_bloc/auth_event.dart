@@ -32,3 +32,5 @@ class RegisterEvent extends AuthEvent{
 }
 
 class LogoutEvent extends AuthEvent{}
+
+class ResendEmail extends AuthEvent{}

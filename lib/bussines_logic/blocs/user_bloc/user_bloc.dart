@@ -30,7 +30,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   Future<void> _onGetUserPref(GetUserPref event, Emitter<UserState> emit) async {
     print(authBlocSubscription);
     emit(UserLoading());
-    UserAPI user = await AuthAPIServices().getUserPref();
+    UserAPI user = await UserServices().getUserPref();
     emit(UserLoaded(user));
   }
 

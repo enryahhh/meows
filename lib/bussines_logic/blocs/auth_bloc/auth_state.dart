@@ -10,10 +10,16 @@ abstract class AuthState extends Equatable {
 class AuthInitial extends AuthState {}
 
 class Authenticated extends AuthState {
-  
+  // final bool isVerified;
+
+  // Authenticated(this.isVerified);
+
+  // @override
+  // List<Object> get props => [isVerified];
 }
 
 class Unauthenticated extends AuthState {}
+class UnVerified extends AuthState {}
 
 class AuthFailed extends AuthState {
   final String? message;

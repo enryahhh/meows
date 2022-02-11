@@ -74,7 +74,7 @@ class _CardPostState extends State<CardPost> {
                       onTap: () => {},
                       child: Row(
                         children: <Widget>[
-                          Icon(Icons.thumb_up, size: 18, color: Colors.black),
+                          // Icon(Icons.thumb_up, size: 18, color: Colors.black),
                           // Padding(
                           //   padding:
                           //       const EdgeInsets.only(left: 8.0, right: 8.0),

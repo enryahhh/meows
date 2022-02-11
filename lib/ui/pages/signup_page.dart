@@ -146,6 +146,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 pwCtrl.text,
                                 cpwCtrl.text));
                           }
+                          
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(mainColor),

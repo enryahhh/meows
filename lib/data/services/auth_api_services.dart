@@ -37,22 +37,7 @@ class AuthAPIServices {
     return token;
   }
 
-  Future<bool> hasUser() async {
-    final SharedPreferences prefs = await _prefs;
-    if (prefs.getString('user') != null) {
-      return true;
-    }
-    return false;
-  }
-
-  Future<UserAPI> getUserPref() async {
-    final SharedPreferences prefs = await _prefs;
-    late UserAPI user;
-    if(await hasUser()){
-      user = UserAPI.fromJson(json.decode(prefs.getString('user')!));
-    }
-    return user;
-  }
+  
 
 
   Future<AuthResult> register(String nama,String email,String password,String confirmpass) async{
@@ -67,6 +52,7 @@ class AuthAPIServices {
       });
       persistToken(result.data['data']['token']);
       print(result.data['data']);
+      await prefs.setString('user', json.encode(result.data['data']['user']));
       authResult = AuthResult(status:result.data['status'],message: result.data['message']);
     }on DioError catch(e){
       print(e);
@@ -123,8 +109,9 @@ class AuthAPIServices {
       String token = await getToken();
       _dio = ConfigAPI().getDio(token);
       final res = await _dio.post(urlApi + "auth/logout");
+      print("ini logout ${res.data['message']}");
       if(res.data['message'] != null){
-        deleteToken();
+        await deleteToken();
         await prefs.remove('user');
       }
     }catch(e){

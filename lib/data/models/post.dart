@@ -3,16 +3,18 @@ part of 'models.dart';
 class UserAPI extends Equatable{
   final int id;
   final String name;
+  final String? isVerified;
 
-  UserAPI({required this.id,required this.name});
+  UserAPI({required this.id,required this.name,this.isVerified});
 
   factory UserAPI.fromJson(Map<String,dynamic> json) => UserAPI(
     id: json['id'],
-    name: json['name']);
+    name: json['name'],
+    isVerified: json['email_verified_at'] ?? null);
 
   @override
   // TODO: implement props
-  List<Object?> get props => [id,name];
+  List<Object?> get props => [id,name,isVerified];
 }
 
 class Post extends Equatable {

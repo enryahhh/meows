@@ -1,7 +1,8 @@
 part of 'pages.dart';
 
 class ListPostPage extends StatefulWidget {
-  const ListPostPage({Key? key}) : super(key: key);
+  // final bool isVerified;
+  ListPostPage({Key? key}) : super(key: key);
 
   @override
   ListPostPageState createState() => ListPostPageState();

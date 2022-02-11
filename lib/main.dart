@@ -20,12 +20,11 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
-  final AuthBloc _authBlc = AuthBloc();
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers:[
-        BlocProvider(create: (_)=> AuthBloc()..add(AppStart())),
+        BlocProvider(create: (_)=> new AuthBloc()..add(AppStart())),
         BlocProvider(create: (context)=> UserBloc(authBloc: context.read<AuthBloc>())),
         BlocProvider(create: (_)=> PostBloc()),
         BlocProvider(create: (_)=> CommentBloc()),
@@ -43,12 +42,13 @@ class MyApp extends StatelessWidget {
             }
           },
           builder: (context,state){
+            print(state);
           if(state is Authenticated){
             return HomePage();
           }else if(state is Unauthenticated){
             return SplashPage();
           }
-          return Container();
+          return Scaffold(body:Center(child:CircularProgressIndicator()));
         }),
       ),
     );

@@ -1,8 +1,8 @@
 part of 'pages.dart';
 
 class HomePage extends StatefulWidget {
+  // final bool isVerified;
   HomePage({Key? key}) : super(key: key);
-
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -29,6 +29,7 @@ class _HomePageState extends State<HomePage>
   pages = [
     MainPage(),
     ListArticlePage(),
+    // ListPostPage(isVerified:widget.isVerified),
     ListPostPage(),
     ProfilePage(),
     // SearchPage(color:Colors.green),
@@ -60,7 +61,7 @@ class _HomePageState extends State<HomePage>
     });
     if(_selectedIndex == 2){
       context.read<PostBloc>().add(FetchPost(false));
-    }else if(_selectedIndex == 1){
+    }else if(_selectedIndex == 1||_selectedIndex == 0){
       context.read<PostBloc>().add(FetchPost(true));
     }
   }

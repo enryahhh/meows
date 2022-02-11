@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:html_editor_enhanced/html_editor.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:intl/intl.dart';
@@ -28,4 +29,5 @@ part 'profile_page.dart';
 part 'list_post_page.dart';
 part 'list_article_page.dart';
 part 'coming_soon_page.dart';
+part 'verify_email_page.dart';
 

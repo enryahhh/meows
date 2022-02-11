@@ -18,7 +18,10 @@ class MainPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   // Icon(Icons.menu),
-                  Icon(Icons.notifications)
+                  Icon(Icons.notifications),
+                  TextButton(child:Text("verify email page"),onPressed:(){
+                    Navigator.push(context, MaterialPageRoute(builder: (ctx)=>VerifyEmail()));
+                  }),
                 ],
               ),
             ),

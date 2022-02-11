@@ -8,7 +8,7 @@ class CardArticle extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (_)=>DetailArticle()));
+        Navigator.push(context, MaterialPageRoute(builder: (_)=>DetailArticle(post:post)));
       },
       child: Container(
           width: 347,
