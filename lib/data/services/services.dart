@@ -16,4 +16,4 @@ part 'post_services.dart';
 part 'auth_api_services.dart';
 part 'custom_interceptor.dart';
 
-const String urlApi = "http://192.168.43.136:8000/api/";
+const String urlApi = "https://meows-web.singarajaikra.my.id/api/";

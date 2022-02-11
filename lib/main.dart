@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:meows_co/data/services/services.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'bussines_logic/blocs/blocs.dart';
 import 'ui/pages/pages.dart';
 import 'package:intl/intl.dart';
@@ -11,8 +12,11 @@ import 'package:intl/intl.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  // SharedPreferences prefs = await SharedPreferences.getInstance();
+  // await prefs.clear();
   initializeDateFormatting('id_ID', null).then((_) {
     // SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+    
     return runApp(MyApp());
   });
 }
@@ -31,6 +35,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Meows Co',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),

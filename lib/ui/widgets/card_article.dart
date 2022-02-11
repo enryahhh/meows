@@ -29,7 +29,7 @@ class CardArticle extends StatelessWidget {
                           BorderRadius.vertical(top: Radius.circular(15)),
                       image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: post.thumbnail != null ? NetworkImage(post.thumbnail!) : AssetImage("assets/images/thumb-article.png") as ImageProvider)),
+                          image: post.thumbnail != null ? NetworkImage("https://meows-web.singarajaikra.my.id/storage/${post.thumbnail!}") : AssetImage("assets/images/thumb-article.png") as ImageProvider)),
                 ),
               ),
               Padding(

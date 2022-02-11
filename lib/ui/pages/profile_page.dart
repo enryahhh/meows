@@ -70,29 +70,41 @@ class ProfilePage extends StatelessWidget {
                     children: [
                       Container(child: Text('konten Saya')),
                       SizedBox(height: 10),
-                      Container(
-                        child: Row(mainAxisSize: MainAxisSize.max, children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 8.0),
-                            child: Icon(
-                              Icons.favorite,
-                              color: Colors.red,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (_) => ComingSoonPage()));
+                        },
+                        child: Container(
+                          child: Row(mainAxisSize: MainAxisSize.max, children: [
+                            Padding(
+                              padding: const EdgeInsets.only(right: 8.0),
+                              child: Icon(
+                                Icons.favorite,
+                                color: Colors.red,
+                              ),
                             ),
-                          ),
-                          Expanded(flex: 2, child: Text("Favorit")),
-                          Icon(Icons.arrow_forward_ios_sharp),
-                        ]),
+                            Expanded(flex: 2, child: Text("Favorit")),
+                            Icon(Icons.arrow_forward_ios_sharp),
+                          ]),
+                        ),
                       ),
-                      Container(
-                        margin: EdgeInsets.only(top: 15),
-                        child: Row(mainAxisSize: MainAxisSize.max, children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 8.0),
-                            child: Icon(Icons.download),
-                          ),
-                          Expanded(flex: 2, child: Text("Download")),
-                          Icon(Icons.arrow_forward_ios_sharp),
-                        ]),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (_) => ComingSoonPage()));
+                        },
+                        child: Container(
+                          margin: EdgeInsets.only(top: 15),
+                          child: Row(mainAxisSize: MainAxisSize.max, children: [
+                            Padding(
+                              padding: const EdgeInsets.only(right: 8.0),
+                              child: Icon(Icons.download),
+                            ),
+                            Expanded(flex: 2, child: Text("Download")),
+                            Icon(Icons.arrow_forward_ios_sharp),
+                          ]),
+                        ),
                       )
                     ]),
               ))),

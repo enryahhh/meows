@@ -51,164 +51,171 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-          child: BlocConsumer<AuthBloc, AuthState>(
+      body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
-          if (state is AuthFailed) {
-            notif(state.message, context);
-          } else if (state is Authenticated) {}
+      if (state is AuthFailed) {
+        notif(state.message, context);
+      } else if (state is Authenticated) {
+        Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (ctx) => HomePage()));
+      }
         },
         builder: (context, state) {
-          if (state is AuthLoading) {
-            return Center(child: CircularProgressIndicator());
-          } else {
-            return Container(
-              margin: EdgeInsets.only(top: 70, left: 52, right: 54),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Sign Up",
-                        style: TextStyle(
-                          fontSize: 36,
-                          color: mainColor,
-                        )),
-                    SizedBox(height: 40),
-                    TextField(
-                        decoration: InputDecoration(
-                            labelText: 'Nama',
-                            prefixIcon: Icon(Icons.account_circle_outlined)),
-                        controller: usernameCtrl),
-                    SizedBox(height: 32),
-                    TextField(
-                        decoration: InputDecoration(
-                            labelText: 'Email',
-                            prefixIcon: Icon(Icons.email_outlined)),
-                        controller: emailCtrl),
-                    SizedBox(height: 32),
-                    TextField(
-                      obscureText: obsPw,
+      if (state is AuthLoading) {
+        return Center(child: CircularProgressIndicator());
+      } else {
+        return SingleChildScrollView(
+          child: Container(
+            margin: EdgeInsets.only(top: 70, left: 52, right: 54),
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Sign Up",
+                      style: TextStyle(
+                        fontSize: 36,
+                        color: mainColor,
+                      )),
+                  SizedBox(height: 40),
+                  TextField(
                       decoration: InputDecoration(
-                          labelText: 'Password',
-                          prefixIcon: Icon(Icons.lock_outline),
-                          suffixIcon: IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  obsPw = !obsPw;
-                                });
-                              },
-                              icon: obsPw
-                                  ? Icon(Icons.remove_red_eye_outlined)
-                                  : Icon(Icons.remove_red_eye_rounded))),
-                      controller: pwCtrl,
-                    ),
-                    SizedBox(height: 32),
-                    TextField(
-                      obscureText: obscpw,
+                          labelText: 'Nama',
+                          prefixIcon: Icon(Icons.account_circle_outlined)),
+                      controller: usernameCtrl),
+                  SizedBox(height: 32),
+                  TextField(
                       decoration: InputDecoration(
-                          labelText: 'Konfirmasi Password',
-                          prefixIcon: Icon(Icons.lock_outline),
-                          suffixIcon: IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  obscpw = !obscpw;
-                                });
-                              },
-                              icon: obscpw
-                                  ? Icon(Icons.remove_red_eye_outlined)
-                                  : Icon(Icons.remove_red_eye_rounded))),
-                      controller: cpwCtrl,
-                    ),
-                    Container(
-                      width: 304,
-                      height: 52,
-                      margin: EdgeInsets.only(top: 35),
-                      child: ElevatedButton(
-                        child: Text('Create'),
-                        onPressed: () async {
-                          if (!(usernameCtrl.text.trim() != "" &&
-                              emailCtrl.text.trim() != "" &&
-                              pwCtrl.text.trim() != "" &&
-                              cpwCtrl.text.trim() != "")) {
-                            notif("Please fill all the field", context);
-                            print("Please fill all the field");
-                          } else if (cpwCtrl.text != pwCtrl.text) {
-                            notif(
-                                "Mistmatch Password and confirmation password",
-                                context);
-                          } else if (pwCtrl.text.length < 6) {
-                            notif("Password length min 6 character", context);
-                          } else if (!EmailValidator.validate(emailCtrl.text)) {
-                            notif("Wrong format email", context);
-                          } else {
-                            context.read<AuthBloc>().add(RegisterEvent(
-                                usernameCtrl.text,
-                                emailCtrl.text,
-                                pwCtrl.text,
-                                cpwCtrl.text));
-                          }
+                          labelText: 'Email',
+                          prefixIcon: Icon(Icons.email_outlined)),
+                      controller: emailCtrl),
+                  SizedBox(height: 32),
+                  TextField(
+                    obscureText: obsPw,
+                    decoration: InputDecoration(
+                        labelText: 'Password',
+                        prefixIcon: Icon(Icons.lock_outline),
+                        suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                obsPw = !obsPw;
+                              });
+                            },
+                            icon: obsPw
+                                ? Icon(Icons.remove_red_eye_outlined)
+                                : Icon(Icons.remove_red_eye_rounded))),
+                    controller: pwCtrl,
+                  ),
+                  SizedBox(height: 32),
+                  TextField(
+                    obscureText: obscpw,
+                    decoration: InputDecoration(
+                        labelText: 'Konfirmasi Password',
+                        prefixIcon: Icon(Icons.lock_outline),
+                        suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                obscpw = !obscpw;
+                              });
+                            },
+                            icon: obscpw
+                                ? Icon(Icons.remove_red_eye_outlined)
+                                : Icon(Icons.remove_red_eye_rounded))),
+                    controller: cpwCtrl,
+                  ),
+                  Container(
+                    width: 304,
+                    height: 52,
+                    margin: EdgeInsets.only(top: 35),
+                    child: ElevatedButton(
+                      child: Text('Create'),
+                      onPressed: () async {
+                        if (!(usernameCtrl.text.trim() != "" &&
+                            emailCtrl.text.trim() != "" &&
+                            pwCtrl.text.trim() != "" &&
+                            cpwCtrl.text.trim() != "")) {
+                          notif("Please fill all the field", context);
+                          print("Please fill all the field");
+                        } else if (cpwCtrl.text != pwCtrl.text) {
+                          notif(
+                              "Mistmatch Password and confirmation password",
+                              context);
+                        } else if (pwCtrl.text.length < 6) {
+                          notif("Password length min 6 character", context);
+                        } else if (!EmailValidator.validate(emailCtrl.text)) {
+                          notif("Wrong format email", context);
+                        } else {
+                          context.read<AuthBloc>().add(RegisterEvent(
+                              usernameCtrl.text,
+                              emailCtrl.text,
+                              pwCtrl.text,
+                              cpwCtrl.text));
                           
-                        },
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(mainColor),
-                          elevation: MaterialStateProperty.all(0),
-                          textStyle: MaterialStateProperty.all(TextStyle(
-                            fontSize: 16,
-                          )),
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
+                        }
+                        
+                      },
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(mainColor),
+                        elevation: MaterialStateProperty.all(0),
+                        textStyle: MaterialStateProperty.all(TextStyle(
+                          fontSize: 16,
+                        )),
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(height: 32),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //   children: [
-                    //     Container(
-                    //         width: SizeDevice(context).widthDevice * 0.25,
-                    //         child: Divider(
-                    //           height: 1,
-                    //           color: Colors.black,
-                    //         )),
-                    //     Text("Or With", style: TextStyle(fontSize: 12)),
-                    //     Container(
-                    //         width: SizeDevice(context).widthDevice * 0.25,
-                    //         child: Divider(
-                    //           height: 1,
-                    //           color: Colors.black,
-                    //         )),
-                    //   ],
-                    // ),
-                    // SizedBox(
-                    //   height: 23,
-                    // ),
-                    // signUpSocmed(),
-                    Padding(
-                        padding: const EdgeInsets.only(top: 15.0),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("Have any account? ", style: purpleTextFont),
-                              GestureDetector(
-                                  onTap: () {
-                                    Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (_) => SignInPage()));
-                                  },
-                                  child: Text(
-                                    "Login",
-                                    style: purpleTextFont.copyWith(
-                                        fontWeight: FontWeight.bold),
-                                  ))
-                            ]))
-                  ]),
-            );
-          }
+                  ),
+                  SizedBox(height: 32),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     Container(
+                  //         width: SizeDevice(context).widthDevice * 0.25,
+                  //         child: Divider(
+                  //           height: 1,
+                  //           color: Colors.black,
+                  //         )),
+                  //     Text("Or With", style: TextStyle(fontSize: 12)),
+                  //     Container(
+                  //         width: SizeDevice(context).widthDevice * 0.25,
+                  //         child: Divider(
+                  //           height: 1,
+                  //           color: Colors.black,
+                  //         )),
+                  //   ],
+                  // ),
+                  // SizedBox(
+                  //   height: 23,
+                  // ),
+                  // signUpSocmed(),
+                  Padding(
+                      padding: const EdgeInsets.only(top: 15.0),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("Have any account? ", style: purpleTextFont),
+                            GestureDetector(
+                                onTap: () {
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (_) => SignInPage()));
+                                },
+                                child: Text(
+                                  "Login",
+                                  style: purpleTextFont.copyWith(
+                                      fontWeight: FontWeight.bold),
+                                ))
+                          ]))
+                ]),
+          ),
+        );
+      }
         },
-      )),
+      ),
     );
   }
 }

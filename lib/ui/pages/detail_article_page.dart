@@ -35,8 +35,7 @@ class DetailArticle extends StatelessWidget {
                           height: 270,
                           decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: NetworkImage(post.thumbnail ??
-                                      "https://via.placeholder.com/728x90.png?text=Visit+WhoIsHostingThis.com+Buyers+GuideC/O https://placeholder.com/"),
+                                  image: NetworkImage(post.thumbnail != null ? "https://meows-web.singarajaikra.my.id/storage/${post.thumbnail}" : "https://via.placeholder.com/728x90.png?text=Visit+WhoIsHostingThis.com+Buyers+GuideC/O https://placeholder.com/"),
                                   fit: BoxFit.cover)),
                         ),
                         Container(

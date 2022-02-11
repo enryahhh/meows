@@ -10,15 +10,24 @@ class PostDetailPage extends StatefulWidget {
 class _PostDetailPageState extends State<PostDetailPage> {
   final TextEditingController _msgTextController = new TextEditingController();
   FocusNode _writingTextFocus = FocusNode();
-
+  late int newComm;
   @override
   void initState() {
     context.read<CommentBloc>().add(GetComment(widget.post));
+    newComm = widget.post.commentsTotal;
     super.initState();
   }
 
   @override
+  void dispose() {
+    _msgTextController.dispose();
+    super.dispose();
+   }
+
+
+  @override
   Widget build(BuildContext context) {
+  
     return SafeArea(
       child: Scaffold(
         body: Stack(
@@ -39,12 +48,16 @@ class _PostDetailPageState extends State<PostDetailPage> {
                         Padding(
                             padding: EdgeInsets.all(5),
                             child: Text(
-                                "Comments (${widget.post.commentsTotal})",
+                                "Comments ($newComm)",
                                 style:
                                     darkPurpleTextFont.copyWith(fontSize: 18))),
                         BlocConsumer<CommentBloc, CommentState>(
                           listener: (context,state){
                             if(state is CommentCreateSuccess){
+                              _msgTextController.clear();
+                              setState(() {
+                                newComm += 1;
+                              });
                               context.read<CommentBloc>().add(GetComment(widget.post));
                             }
                           },
@@ -68,7 +81,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
                           } else if(state is CommentCreateSuccess){
                               return CardComment(comment:state.comment);
                           }
-                          return CircularProgressIndicator();
+                          return Center(child: CircularProgressIndicator());
                         }),
                       ]),
                 )),
@@ -94,6 +107,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
               child: new TextField(
                 focusNode: _writingTextFocus,
                 controller: _msgTextController,
+                
                 decoration:
                     new InputDecoration.collapsed(hintText: "Write a comment",hintStyle: whiteTextFont),
               ),
@@ -102,7 +116,11 @@ class _PostDetailPageState extends State<PostDetailPage> {
               margin: new EdgeInsets.symmetric(horizontal: 2.0),
               child:
                   new IconButton(icon: new Icon(Icons.send), onPressed: () {
-                    context.read<CommentBloc>().add(CreateComment(_msgTextController.text, widget.post.postId));
+                    if(!(_msgTextController.text.trim() != "")){
+                      return null;
+                    }else {
+                      context.read<CommentBloc>().add(CreateComment(_msgTextController.text, widget.post.postId));
+                    }
                   }),
             ),
           ],

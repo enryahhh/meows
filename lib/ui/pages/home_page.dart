@@ -118,8 +118,8 @@ class _HomePageState extends State<HomePage>
             label: "Beranda",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.assignment),
-            label: "Article",
+            icon: Icon(Icons.import_contacts),
+            label: "Artikel",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.comment),

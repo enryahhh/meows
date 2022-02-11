@@ -43,6 +43,7 @@ class AuthAPIServices {
   Future<AuthResult> register(String nama,String email,String password,String confirmpass) async{
     _dio.interceptors.add(CustomInterceptor());
     late AuthResult authResult;
+    final SharedPreferences prefs = await _prefs;
     try{
       final result = await _dio.post(urlApi + "auth/register",data: {
         "name" : nama,
@@ -110,9 +111,8 @@ class AuthAPIServices {
       _dio = ConfigAPI().getDio(token);
       final res = await _dio.post(urlApi + "auth/logout");
       print("ini logout ${res.data['message']}");
-      if(res.data['message'] != null){
-        await deleteToken();
-        await prefs.remove('user');
+      if(res.statusCode == 200){
+        prefs.clear();
       }
     }catch(e){
       print(e.toString());
