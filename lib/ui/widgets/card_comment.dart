@@ -58,41 +58,41 @@ class CardComment extends StatelessWidget {
                   onTap: () => {},
                   child: Row(
                     children: <Widget>[
-                      Icon(Icons.thumb_up, size: 18, color: Colors.black),
-                      // Padding(
-                      //   padding:
-                      //       const EdgeInsets
-                      //               .only(
-                      //           left: 8.0,
-                      //           right: 8.0),
-                      //   child: Text(
-                      //     'Like ( ${widget.post.likesTotal} )',
-                      //     style: TextStyle(
-                      //         fontSize: 16,
-                      //         fontWeight:
-                      //             FontWeight
-                      //                 .bold,
-                      //         color: Colors
-                      //             .black),
-                      //   ),
-                      // ),
-                      Icon(Icons.comment_bank, size: 18, color: Colors.black),
-                      // Padding(
-                      //   padding:
-                      //       const EdgeInsets
-                      //               .only(
-                      //           left: 8.0),
-                      //   child: Text(
-                      //     'Comment ( ${widget.post.commentsTotal} )',
-                      //     style: TextStyle(
-                      //         fontSize: 16,
-                      //         fontWeight:
-                      //             FontWeight
-                      //                 .bold,
-                      //         color: Colors
-                      //             .black),
-                      //   ),
-                      // ),
+                      Icon(Icons.arrow_circle_up_outlined, size: 18, color: Colors.black),
+                      Padding(
+                        padding:
+                            const EdgeInsets
+                                    .only(
+                                left: 8.0,
+                                right: 8.0),
+                        child: Text(
+                          '0',
+                          style: TextStyle(
+                              fontSize: 12,
+                              fontWeight:
+                                  FontWeight
+                                      .bold,
+                              color: Colors
+                                  .black),
+                        ),
+                      ),
+                      Icon(Icons.arrow_circle_down_outlined, size: 18, color: Colors.black),
+                      Padding(
+                        padding:
+                            const EdgeInsets
+                                    .only(
+                                left: 8.0),
+                        child: Text(
+                          '0',
+                          style: TextStyle(
+                              fontSize: 12,
+                              fontWeight:
+                                  FontWeight
+                                      .bold,
+                              color: Colors
+                                  .black),
+                        ),
+                      ),
                     ],
                   ),
                 ),
