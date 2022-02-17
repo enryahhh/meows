@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:meows_co/data/models/models.dart';
@@ -10,3 +12,4 @@ part 'card_article.dart';
 part 'no_connection.dart';
 part 'card_post.dart';
 part 'card_comment.dart';
+part 'card_cat.dart';

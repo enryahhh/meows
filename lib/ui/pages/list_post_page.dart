@@ -40,7 +40,7 @@ class ListPostPageState extends State<ListPostPage> {
                 return Center(child: CircularProgressIndicator());
               }
               if(state is PostLoadFailure){
-                return NoConnection(pesanError: "Tidak ada koneksi internet",cobaLagi: (){
+                return NoConnection(pesanError: "Terjadi kesalahan",cobaLagi: (){
                   context.read<PostBloc>().add(FetchPost(false));
                 });
               }

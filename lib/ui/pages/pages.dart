@@ -30,4 +30,5 @@ part 'list_post_page.dart';
 part 'list_article_page.dart';
 part 'coming_soon_page.dart';
 part 'verify_email_page.dart';
+part 'mycat_pages.dart';
 

@@ -8,9 +8,8 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-
   @override
-  void initState(){
+  void initState() {
     context.read<PostBloc>().add(FetchPost(true));
     super.initState();
   }
@@ -22,7 +21,7 @@ class _MainPageState extends State<MainPage> {
         margin: EdgeInsets.all(24),
         padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
         child: Column(
-          mainAxisSize:MainAxisSize.min,
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
@@ -30,7 +29,11 @@ class _MainPageState extends State<MainPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   // Icon(Icons.menu),
-                  Icon(Icons.notifications),
+                  // Icon(Icons.notifications),
+                  Container(
+                      width: 50,
+                      height: 50,
+                      child: Image.asset("assets/images/logo.png"))
                   // TextButton(child:Text("verify email page"),onPressed:(){
                   //   Navigator.push(context, MaterialPageRoute(builder: (ctx)=>VerifyEmail()));
                   // }),
@@ -68,22 +71,28 @@ class _MainPageState extends State<MainPage> {
                       Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            createKotakMenu(
-                                context,
-                                150,
-                                164,
-                                Color(0xFF8ADFF5),
-                                [
-                                  Flexible(
-                                      child: Image.asset(
-                                    "assets/images/pet.png",
-                                    height:
-                                        SizeDevice(context).heightDevice * 0.12,
-                                  )),
-                                  Text("Kucingku", style: darkPurpleTextFont),
-                                  Text("4")
-                                ],
-                                Icon(Icons.arrow_forward)),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (_) => MyCatPage()));
+                              },
+                              child: createKotakMenu(
+                                  context,
+                                  150,
+                                  164,
+                                  Color(0xFF8ADFF5),
+                                  [
+                                    Flexible(
+                                        child: Image.asset(
+                                      "assets/images/pet.png",
+                                      height: SizeDevice(context).heightDevice *
+                                          0.12,
+                                    )),
+                                    Text("Kucingku", style: darkPurpleTextFont),
+                                    Text("2")
+                                  ],
+                                  Icon(Icons.arrow_forward)),
+                            ),
                             createKotakMenu(
                                 context,
                                 148,
@@ -153,15 +162,18 @@ class _MainPageState extends State<MainPage> {
             BlocBuilder<PostBloc, PostState>(builder: (context, state) {
               if (state is PostLoadFailure) {
                 return NoConnection(
-                    cobaLagi: () {context.read<PostBloc>().add(FetchPost(true));}, pesanError: "Terjadi Kesalahan");
+                    cobaLagi: () {
+                      context.read<PostBloc>().add(FetchPost(true));
+                    },
+                    pesanError: "Terjadi Kesalahan");
               } else if (state is PostLoaded) {
                 return ListView.builder(
-                  itemCount:state.post.length,
-                  physics: ScrollPhysics(),
-                  shrinkWrap: true,
+                    itemCount: state.post.length,
+                    physics: ScrollPhysics(),
+                    shrinkWrap: true,
                     itemBuilder: (ctx, i) => CardArticle(post: state.post[i]));
                 // List<Widget> tes = state.post.map((e) => CardArticle(post: e)).toList();
-               
+
                 // return ListView(
                 //   children:[
                 //     ...tes
