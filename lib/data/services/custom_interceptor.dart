@@ -16,6 +16,6 @@ class CustomInterceptor extends Interceptor {
   @override
   Future onError(DioError err, ErrorInterceptorHandler handler) async {
     print("onError: ${err.response?.statusCode ?? "tes intercept error"}");
-    return handler.next(err);  // <--- THE TIP IS HERE
+    return super.onError(err, handler);  // <--- THER TIP IS HERE
   }
 }

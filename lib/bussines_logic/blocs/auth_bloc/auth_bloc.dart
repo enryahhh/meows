@@ -8,7 +8,7 @@ part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  
+  AuthAPIServices authService = new AuthAPIServices();
   AuthBloc() : super(AuthInitial()) {
     
     on<AppStart>((event, emit) => _onAppStarted(event, emit));
@@ -24,7 +24,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Future<void> _onAppStarted(AppStart event, Emitter<AuthState> emit) async {
     // await AuthAPIServices().persistToken("30|QIYoZmvuxEInpBhO1BakIQ3CEAh9hr9fWdimE1QF");
-    final bool hasToken = await AuthAPIServices().hasToken();
+    final bool hasToken = await authService.hasToken();
     print("ini hastoken appstart ${hasToken}");
     if (hasToken) {
       // isVerify = await isVerified();
@@ -36,7 +36,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Future<void> _onLoginEvent(LoginEvent event, Emitter<AuthState> emit)async{
     emit(AuthLoading());
-    AuthResult authResult = await AuthAPIServices().login(event.email, event.password);
+    AuthResult authResult = await authService.login(event.email, event.password);
     if(authResult.status == "success"){
       // isVerify = await isVerified();
       emit(Authenticated());
@@ -47,14 +47,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Future<void> _onLogoutEvent(LogoutEvent event, Emitter<AuthState> emit) async {
-    await AuthAPIServices().logout();
+    await authService.logout();
     emit(AuthLoading());
     emit(Unauthenticated());
   }
 
   Future<void> _onRegisterEvent(RegisterEvent event, Emitter<AuthState> emit) async{
     emit(AuthLoading());
-    AuthResult authResult = await AuthAPIServices().register(event.nama,event.email, event.password,event.confirmpass);
+    AuthResult authResult = await authService.register(event.nama,event.email, event.password,event.confirmpass);
     // isVerify = await isVerified();
     if(authResult.status == "success"){
       // emit(UnVerified());

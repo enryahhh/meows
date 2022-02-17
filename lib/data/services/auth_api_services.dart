@@ -1,6 +1,10 @@
 part of 'services.dart';
 
 class AuthAPIServices {
+    // HttpService http = new HttpService();
+  AuthAPIServices(){
+    // http.init();
+  }
   Dio _dio = Dio();
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   late SharedPreferences prefs;
@@ -45,6 +49,12 @@ class AuthAPIServices {
     late AuthResult authResult;
     final SharedPreferences prefs = await _prefs;
     try{
+      // final result = await http.request(url:"auth/register",method:Method.POST,params: {
+      //   "name" : nama,
+      //   "email" : email,
+      //   "password" : password,
+      //   "password_confirmation" : confirmpass
+      // });
       final result = await _dio.post(urlApi + "auth/register",data: {
         "name" : nama,
         "email" : email,
@@ -78,6 +88,10 @@ class AuthAPIServices {
     final SharedPreferences prefs = await _prefs;
     late AuthResult authResult;
     try{
+      // final result = await http.request(url : "auth/login",method:Method.POST,params: {
+      //   "email" : email,
+      //   "password" : password
+      // });
       final result = await _dio.post(urlApi + "auth/login",data: {
         "email" : email,
         "password" : password
@@ -88,8 +102,9 @@ class AuthAPIServices {
       authResult = AuthResult(status:result.data['status'],message: result.data['message'],user:user);
       await prefs.setString('user', json.encode(result.data['data']['user']));
     }on DioError catch(e){
-      print(e);
+      print(e.response!.statusCode);
       print(e.toString());
+      
           if (e.response != null) {
             print(e.response!.data);
             print(e.response!.headers);

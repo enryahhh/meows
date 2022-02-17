@@ -17,11 +17,12 @@ class FetchPost extends PostBlocEvent {
 }
 
 class CreatePost extends PostBlocEvent {
-  final Post post;
+  final String title;
+  final String content;
   
-    CreatePost(this.post);
+    CreatePost(this.title,this.content);
     @override
-    List<Object> get props => [post];
+    List<Object> get props => [title,content];
 
 }
 

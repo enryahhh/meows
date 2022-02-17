@@ -1,7 +1,19 @@
 part of 'pages.dart';
 
-class MainPage extends StatelessWidget {
+class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
+
+  @override
+  _MainPageState createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+
+  @override
+  void initState(){
+    context.read<PostBloc>().add(FetchPost(true));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

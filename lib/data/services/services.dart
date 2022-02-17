@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -15,5 +16,6 @@ part 'user_services.dart';
 part 'post_services.dart';
 part 'auth_api_services.dart';
 part 'custom_interceptor.dart';
+part 'http_services.dart';
 
 const String urlApi = "https://meows-web.singarajaikra.my.id/api/";

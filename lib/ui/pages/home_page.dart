@@ -61,7 +61,7 @@ class _HomePageState extends State<HomePage>
     });
     if(_selectedIndex == 2){
       context.read<PostBloc>().add(FetchPost(false));
-    }else if(_selectedIndex == 1||_selectedIndex == 0){
+    }else if(_selectedIndex == 1){
       context.read<PostBloc>().add(FetchPost(true));
     }
   }

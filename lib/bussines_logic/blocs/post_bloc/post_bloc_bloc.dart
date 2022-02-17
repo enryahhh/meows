@@ -43,8 +43,8 @@ class PostBloc extends Bloc<PostBlocEvent, PostState> {
   }
 
   Future<void> _onPostCreated(CreatePost event, Emitter<PostState> emit) async{
-    _postServices.newPost(event.post.title, event.post.content);
     emit(PostLoading());
+    _postServices.newPost(event.title, event.content);
     emit(PostCreateSuccess());
   }
 }

@@ -164,8 +164,11 @@ class ProfilePage extends StatelessWidget {
       onPressed: () async {
         // await AuthServices.signOut();
         context.read<AuthBloc>().add(LogoutEvent());
-        Navigator.of(context)
-            .pushReplacement(MaterialPageRoute(builder: (ctx) => SignInPage()));
+         Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (BuildContext context) => SignInPage()),
+                 (Route<dynamic> route) => false
+                );
       },
     );
     // set up the AlertDialog
