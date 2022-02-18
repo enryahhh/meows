@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.AlimUntung.meows_co">
+    package="com.AlimUntung.meows">
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="Meows"
