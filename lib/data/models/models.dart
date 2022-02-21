@@ -6,3 +6,4 @@ part 'user.dart';
 part 'post.dart';
 part 'post_detail.dart';
 part 'comment.dart';
+part 'cats.dart';

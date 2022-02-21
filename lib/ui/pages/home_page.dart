@@ -60,9 +60,9 @@ class _HomePageState extends State<HomePage>
       pageController.jumpToPage(index);
     });
     if(_selectedIndex == 2){
-      context.read<PostBloc>().add(FetchPost(false));
+      context.read<PostBloc>().add(FetchPost(false,false));
     }else if(_selectedIndex == 1){
-      context.read<PostBloc>().add(FetchPost(true));
+      context.read<PostBloc>().add(FetchPost(true,false));
     }
   }
 

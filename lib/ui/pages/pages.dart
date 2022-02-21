@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -12,6 +15,7 @@ import 'package:meows_co/data/models/models.dart';
 import 'package:meows_co/data/services/services.dart';
 import 'package:meows_co/ui/widgets/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../shared/shared.dart';
 import '../../bussines_logic/blocs/blocs.dart';
 
@@ -31,4 +35,5 @@ part 'list_article_page.dart';
 part 'coming_soon_page.dart';
 part 'verify_email_page.dart';
 part 'mycat_pages.dart';
-
+part 'new_cat_page.dart';
+part 'term_condition_page.dart';

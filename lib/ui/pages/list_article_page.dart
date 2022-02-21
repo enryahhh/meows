@@ -7,7 +7,27 @@ class ListArticlePage extends StatefulWidget {
   _ListArticlePageState createState() => _ListArticlePageState();
 }
 
+class Debouncer {
+  int? milliseconds;
+  VoidCallback? action;
+  Timer? timer;
+
+  run(VoidCallback action) {
+    if (null != timer) {
+      timer!.cancel();
+    }
+    timer = Timer(
+      Duration(milliseconds: Duration.millisecondsPerSecond),
+      action,
+    );
+  }
+}
+
 class _ListArticlePageState extends State<ListArticlePage> {
+  final _debouncer = Debouncer();
+  List<Post> _postsFind = [];
+  List<Post> _postAll = [];
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -24,7 +44,7 @@ class _ListArticlePageState extends State<ListArticlePage> {
                         primaryColor: Color(0xffff1f2f6),
                       ),
                       child: TextField(
-                        decoration: InputDecoration(
+                          decoration: InputDecoration(
                             fillColor: Color(0xffff1f2f6),
                             filled: true,
                             contentPadding: EdgeInsets.zero,
@@ -39,17 +59,45 @@ class _ListArticlePageState extends State<ListArticlePage> {
                                 borderSide:
                                     BorderSide(color: Color(0xffff1f2f6))),
                             hintStyle: TextStyle(color: Color(0xfff7f8c8d)),
-                            hintText: 'Search'),
-                      ),
+                            hintText: 'Search',
+                          ),
+                          onChanged: (string) {
+                            _debouncer.run(() {
+                              setState(() {
+                                _postAll = _postsFind
+                                    .where(
+                                      (u) => (u.title.toLowerCase().contains(
+                                            string.toLowerCase(),
+                                          )),
+                                    )
+                                    .toList();
+                              });
+                            });
+                          }),
                     )),
-                    BlocBuilder<PostBloc,PostState>(builder: (context,state){
-                      if(state is PostLoadFailure){
-                        return NoConnection(cobaLagi: (){context.read<PostBloc>().add(FetchPost(true));}, pesanError: "Terjadi Kesalahan");
-                      }else if(state is PostLoaded){
-                        return ListView.builder(itemCount:state.post.length,shrinkWrap: true,itemBuilder: (ctx,i)=>CardArticle(post:state.post[i]));
-                      }
-                      return Center(child:CircularProgressIndicator());
-                    })
+                BlocConsumer<PostBloc, PostState>(listener: (context, state) {
+                  if (state is PostLoaded) {
+                    setState(() {
+                      _postAll = state.post;
+                      _postsFind = _postAll;
+                    });
+                  }
+                }, builder: (context, state) {
+                  if (state is PostLoadFailure) {
+                    return NoConnection(
+                        cobaLagi: () {
+                          context.read<PostBloc>().add(FetchPost(true, false));
+                        },
+                        pesanError: "Terjadi Kesalahan");
+                  } else if (state is PostLoaded) {
+                    return ListView.builder(
+                        itemCount: _postAll.length,
+                        shrinkWrap: true,
+                        itemBuilder: (ctx, i) =>
+                            CardArticle(post: _postAll[i]));
+                  }
+                  return Center(child: CircularProgressIndicator());
+                })
               ])))),
     );
   }

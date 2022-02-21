@@ -1,8 +1,8 @@
 part of 'widgets.dart';
 
 class CardCat extends StatelessWidget {
-  const CardCat({ Key? key }) : super(key: key);
-
+  final Cats cat; 
+  CardCat({ Key? key, required this.cat }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -33,13 +33,14 @@ class CardCat extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Nama Kucing",
+                              Text("${cat.namaKucing}",
                                   style: darkPurpleTextFont.copyWith(
                                       fontSize: 18,
                                       fontWeight: FontWeight.normal)),
                               SizedBox(height: 5),
-                              Text("Gender : Jantan"),
-                              Text("Umur : 1 thn")
+                              Text("Gender : ${cat.jk}"),
+                              Text("Ras :  ${cat.ras ?? '-'}"),
+                              Text("Lahir : ${cat.birth ?? '-'}"),
                             ],
                           ))
                     ])),

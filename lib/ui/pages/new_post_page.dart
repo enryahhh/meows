@@ -33,7 +33,7 @@ class _NewPostPageState extends State<NewPostPage> {
             child:
                 BlocConsumer<PostBloc, PostState>(listener: (context, state) {
           if (state is PostCreateSuccess) {
-            context.read<PostBloc>().add(FetchPost(false));
+            context.read<PostBloc>().add(FetchPost(false,false));
             Navigator.pop(context);
           }
         }, builder: (context, state) {

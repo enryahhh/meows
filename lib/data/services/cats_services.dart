@@ -1,56 +1,60 @@
 part of 'services.dart';
 
-class PostServices {
+class CatServices {
   Dio dio = Dio();
   Future<void> setToken() async {
     String _token = await AuthAPIServices().getToken();
     dio = ConfigAPI().getDio(_token);
   }
 
-  Future<List<Post>> getListPost(bool isArticle,bool isHome) async {
-    late final List post;
-    late String url;
-
-    if (isArticle) {
-      if(isHome){
-        url = urlApi + "latest-article";
-      }else {
-        url = urlApi + "article";
-      }
-    } else {
-      url = urlApi + "post";
-    }
+  Future<APIResult> getListCat() async {
+    late final List cats;
+    late String code;
+    late List<Cats> data;
     // String token = await AuthAPIServices().getToken();
     //   dio = ConfigAPI().getDio(token);
     await setToken();
-    print("ini get post");
+    print("ini get cats");
     try {
-      final Response response = await dio.get(url);
-      post = response.data['data']['post'];
+      final Response response = await dio.get(urlApi+"cat");
+      
       print("ini get post ${response.data}");
       // debugPrint(tes2.toString());
+      if (response.statusCode == 200) {
+        code = "200";
+        if(response.data['data']['cats'] != null){
+          cats = response.data['data']['cats'];
+          data = cats.map((e) => Cats.fromJson(e)).toList();
+          print(data);
+        }else{
+          data = [];
+        }
+      }
+      
+      
     } on DioError catch (e) {
       print("ini error");
       if (e.response != null) {
         print(e.response?.data ?? "response.data error");
         print(e.response?.headers ?? "response.header error");
-        print(e.response?.requestOptions ?? "response.header reqoption");
+        print(e.response?.requestOptions ?? "response.header req option");
       } else {
         // Something happened in setting up or sending the request that triggered an Error
         print(e.requestOptions);
         print(e.message);
       }
-      post = [];
+      code = "500";
+      data = [];
 
       print(e.toString());
     }
-    return post.map((e) => Post.fromJson(e)).toList();
+    return APIResult(code, data);
   }
 
-  Future<void> newPost(String title, String content) async {
+  Future<void> newCat(String title, String content) async {
     await setToken();
     try {
-      final response = await dio.post(urlApi + "post",
+      final response = await dio.post(urlApi + "cat",
           data: {'title': title, 'content': content, 'thumbnail': null});
       print("ini post " + response.toString());
     } catch (e) {
@@ -118,9 +122,3 @@ class PostServices {
   }
 }
 
-class APIResult {
-  final String code;
-  final dynamic data;
-
-  APIResult(this.code, this.data);
-}

@@ -41,7 +41,7 @@ class ListPostPageState extends State<ListPostPage> {
               }
               if(state is PostLoadFailure){
                 return NoConnection(pesanError: "Terjadi kesalahan",cobaLagi: (){
-                  context.read<PostBloc>().add(FetchPost(false));
+                  context.read<PostBloc>().add(FetchPost(false,false));
                 });
               }
               if (state is PostLoaded) {

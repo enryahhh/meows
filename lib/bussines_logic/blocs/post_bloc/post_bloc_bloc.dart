@@ -20,7 +20,7 @@ class PostBloc extends Bloc<PostBlocEvent, PostState> {
 
   Future<void> _onPostFetched(FetchPost event, Emitter<PostState> emit) async {
     emit(PostLoading());
-    final posts = await _postServices.getListPost(event.isArticle);
+    final posts = await _postServices.getListPost(event.isArticle,event.isHome);
     // final posts = await PostServices().getListPostFb();
     print(posts.length);
     if(posts.length == 0){

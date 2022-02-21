@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context)=> UserBloc(authBloc: context.read<AuthBloc>())),
         BlocProvider(create: (_)=> PostBloc()),
         BlocProvider(create: (_)=> CommentBloc()),
+        BlocProvider(create: (_)=> CatsBloc()),
       ],
       child: MaterialApp(
         title: 'Meows Co',
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
           listener:(context,state){
             if(state is Authenticated){
               context.read<UserBloc>().add(GetUserPref());
-              context.read<PostBloc>().add(FetchPost(true));
+              context.read<PostBloc>().add(FetchPost(true,true));
             }
           },
           builder: (context,state){

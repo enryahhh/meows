@@ -17,5 +17,6 @@ part 'post_services.dart';
 part 'auth_api_services.dart';
 part 'custom_interceptor.dart';
 part 'http_services.dart';
+part 'cats_services.dart';
 
 const String urlApi = "https://meows-web.singarajaikra.my.id/api/";

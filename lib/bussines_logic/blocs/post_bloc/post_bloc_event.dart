@@ -8,12 +8,11 @@ abstract class PostBlocEvent extends Equatable {
 }
 
 class FetchPost extends PostBlocEvent {
-  final bool isArticle;
-
-  FetchPost(this.isArticle);
+  final bool isArticle,isHome;
+  FetchPost(this.isArticle,this.isHome);
 
   @override
-  List<Object> get props => [isArticle];
+  List<Object> get props => [isArticle,isHome];
 }
 
 class CreatePost extends PostBlocEvent {
@@ -24,6 +23,15 @@ class CreatePost extends PostBlocEvent {
     @override
     List<Object> get props => [title,content];
 
+}
+
+class SearchArticle extends PostBlocEvent{
+  final String keyword;
+
+  SearchArticle(this.keyword);
+
+  @override
+    List<Object> get props => [keyword];
 }
 
 class FetchDetailPost extends PostBlocEvent{

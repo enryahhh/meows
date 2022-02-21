@@ -10,7 +10,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   @override
   void initState() {
-    context.read<PostBloc>().add(FetchPost(true));
+    context.read<PostBloc>().add(FetchPost(true,true));
     super.initState();
   }
 
@@ -73,6 +73,7 @@ class _MainPageState extends State<MainPage> {
                           children: [
                             GestureDetector(
                               onTap: () {
+                                context.read<CatsBloc>().add(GetCat());
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (_) => MyCatPage()));
                               },
@@ -89,7 +90,6 @@ class _MainPageState extends State<MainPage> {
                                           0.12,
                                     )),
                                     Text("Kucingku", style: darkPurpleTextFont),
-                                    Text("2")
                                   ],
                                   Icon(Icons.arrow_forward)),
                             ),
@@ -163,7 +163,7 @@ class _MainPageState extends State<MainPage> {
               if (state is PostLoadFailure) {
                 return NoConnection(
                     cobaLagi: () {
-                      context.read<PostBloc>().add(FetchPost(true));
+                      context.read<PostBloc>().add(FetchPost(true,true));
                     },
                     pesanError: "Terjadi Kesalahan");
               } else if (state is PostLoaded) {

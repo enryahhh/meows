@@ -113,25 +113,25 @@ class _SignInPageState extends State<SignInPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 55),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                      width: SizeDevice(context).widthDevice * 0.25,
-                      child: Divider(
-                        height: 1,
-                        color: Colors.black,
-                      )),
-                  Text("Or With", style: TextStyle(fontSize: 12)),
-                  Container(
-                      width: SizeDevice(context).widthDevice * 0.25,
-                      child: Divider(
-                        height: 1,
-                        color: Colors.black,
-                      )),
-                ],
-              ),
+              //SizedBox(height: 55),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: [
+              //     Container(
+              //         width: SizeDevice(context).widthDevice * 0.25,
+              //         child: Divider(
+              //           height: 1,
+              //           color: Colors.black,
+              //         )),
+              //     Text("Or With", style: TextStyle(fontSize: 12)),
+              //     Container(
+              //         width: SizeDevice(context).widthDevice * 0.25,
+              //         child: Divider(
+              //           height: 1,
+              //           color: Colors.black,
+              //         )),
+              //   ],
+              // ),
               SizedBox(
                 height: 23,
               ),

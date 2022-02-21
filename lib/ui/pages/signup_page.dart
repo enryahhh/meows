@@ -8,6 +8,8 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  
+
   Widget signUpSocmed() {
     return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
       Container(
@@ -47,6 +49,7 @@ class _SignUpPageState extends State<SignUpPage> {
   bool obsPw = true;
   bool obscpw = true;
   bool isSigningUp = false;
+  bool _valTerm = false;
 
   @override
   Widget build(BuildContext context) {
@@ -123,6 +126,53 @@ class _SignUpPageState extends State<SignUpPage> {
                                 : Icon(Icons.remove_red_eye_rounded))),
                     controller: cpwCtrl,
                   ),
+                  // Row(
+                  //   children:[
+                  //     Switch(
+                  //       value: _valTerm,
+                  //       onChanged:(val){
+                  //         setState(() {
+                  //           _valTerm = val;
+                  //         });
+                  //       }
+                  //     ),
+                  //     Text("Terms Of Service",style:darkPurpleTextFont.copyWith(fontSize:18))
+                  //   ]
+                  // ),
+                  SizedBox(height:15),
+                    RichText(
+                      text:TextSpan(
+                        text:'By clicking "Create" I agree that I have read and accepted the ',
+                        style:darkPurpleTextFont.copyWith(fontSize:15,fontWeight:FontWeight.normal,height: 1.5),
+                        children:[
+                          TextSpan(
+                            text:' Term and Condition ' ,
+                            style: TextStyle(
+                                fontSize: 16.0,
+                                color: mainColor,
+                              ),
+                              recognizer: TapGestureRecognizer()..onTap = () async{
+                                if (!await launch("https://docs.google.com/document/d/1jArkOyc2MOuGZWQbgJ72sFRw7zlrZc3bI1oD16vhxuY/edit?usp=sharing")) throw 'Could not launch url';
+                              }
+                          ),
+                          TextSpan(
+                            text: 'and '
+                          ),
+                          TextSpan(
+                            text: 'Privacy Policy ',
+                            style: TextStyle(
+                                fontSize: 16.0,
+                                color: mainColor,),
+                                recognizer: TapGestureRecognizer()..onTap = () async{
+                                if (!await launch("https://docs.google.com/document/d/1zwC8dug_Bh04uJicXyHVzlqL3VOl_XWTVDoERb_s-D0/edit?usp=sharing")) throw 'Could not launch url';
+                                }
+                          ),
+                          TextSpan(
+                            text: 'of this application.'
+                          )
+                        ]
+                      )
+                    ),
                   Container(
                     width: 304,
                     height: 52,
@@ -168,7 +218,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 32),
+                  SizedBox(height: 25),
                   // Row(
                   //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   //   children: [
@@ -196,7 +246,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("Have any account? ", style: purpleTextFont),
+                            Text("Sudah Punya Akun? ", style: purpleTextFont),
                             GestureDetector(
                                 onTap: () {
                                   Navigator.pushReplacement(
