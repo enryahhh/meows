@@ -1,4 +1,4 @@
-package com.AlimUntung.meows_co
+package com.AlimUntung.meows
 
 import io.flutter.embedding.android.FlutterActivity
 

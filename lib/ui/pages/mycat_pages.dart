@@ -14,7 +14,9 @@ class MyCatPage extends StatelessWidget {
                     primary: mainColor,
                     shape: CircleBorder(),
                     padding: EdgeInsets.all(16)),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (ctx)=>NewCatPage()));
+                },
                 child: Icon(Icons.add)),
           ),
           body: Container(
@@ -29,7 +31,7 @@ class MyCatPage extends StatelessWidget {
                           fontSize: 22, fontWeight: FontWeight.normal)),
                 ),
                 BlocBuilder<CatsBloc, CatsState>(builder: (context, state) {
-                  if (state is PostLoadFailure) {
+                  if (state is CatsLoadFailure) {
                     return NoConnection(
                         pesanError: "Terjadi kesalahan",
                         cobaLagi: () {

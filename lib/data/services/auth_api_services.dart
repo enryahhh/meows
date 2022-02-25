@@ -77,6 +77,7 @@ class AuthAPIServices {
         // Something happened in setting up or sending the request that triggered an Error
         print(e.requestOptions);
         print(e.message);
+        authResult = AuthResult(status:"error",message: "server error");
       }
     }
     return authResult;
@@ -102,7 +103,7 @@ class AuthAPIServices {
       authResult = AuthResult(status:result.data['status'],message: result.data['message'],user:user);
       await prefs.setString('user', json.encode(result.data['data']['user']));
     }on DioError catch(e){
-      print(e.response!.statusCode);
+      // print(e.response!.statusCode);
       print(e.toString());
       
           if (e.response != null) {
@@ -112,6 +113,7 @@ class AuthAPIServices {
           authResult = AuthResult(status:e.response!.data['status'],message: e.response!.data['message']);
       } else {
         // Something happened in setting up or sending the request that triggered an Error
+        authResult = AuthResult(status:"error",message: "server error");
         print(e.requestOptions);
         print(e.message);
       }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meows_co/data/models/models.dart';
@@ -14,6 +16,7 @@ class CatsBloc extends Bloc<CatsEvent, CatsState> {
     });
 
     on<GetCat>((event,emit) => _onCatFetched(event,emit));
+    on<AddCat>((event,emit) => _onCreateCat(event,emit));
   }
 
   Future<void> _onCatFetched(GetCat event, Emitter<CatsState> emit) async {
@@ -27,4 +30,15 @@ class CatsBloc extends Bloc<CatsEvent, CatsState> {
       emit(CatsLoaded(result.data));
     }
   }
+
+  Future<void> _onCreateCat(AddCat event, Emitter<CatsState> emit) async {
+    emit(CatsLoading());
+    final result = await _catServices.newCat(event.namaKucing, event.jk, event.birth, event.ras, event.photo);
+    if(result == null){
+      emit(CatsLoadFailure());
+    }else{
+      emit(CatsCreateSuccess());
+    }
+  }
+
 }

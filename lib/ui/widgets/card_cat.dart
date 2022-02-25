@@ -25,7 +25,9 @@ class CardCat extends StatelessWidget {
                         decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             image: DecorationImage(
-                                image: AssetImage("assets/images/thumb-article.jpg"),
+                                image: (cat.photo == null)
+                              ? AssetImage("assets/images/user_pic.png")
+                              : NetworkImage("https://meows-web.singarajaikra.my.id/storage/cat/${cat.photo}") as ImageProvider,
                                 fit: BoxFit.cover)),
                       ),
                       Container(

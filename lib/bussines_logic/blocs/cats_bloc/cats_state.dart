@@ -22,11 +22,11 @@ class CatsLoaded extends CatsState {
 class CatsLoadFailure extends CatsState {}
 
 class CatsCreateSuccess extends CatsState {
-  final Cats Cat;
+  // final Cats cat;
 
-  CatsCreateSuccess(this.Cat);
+  CatsCreateSuccess();
 
   @override
-  List<Object> get props => [Cat];
+  List<Object> get props => [];
 }
 

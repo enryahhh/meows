@@ -51,15 +51,19 @@ class CatServices {
     return APIResult(code, data);
   }
 
-  Future<void> newCat(String title, String content) async {
+  Future<Response?> newCat(String nama_kucing, String jk, String? birth,String? ras,File? photo) async {
     await setToken();
+    var formData = FormData.fromMap({'nama_kucing': nama_kucing, 'jk': jk, 'birth': birth,'ras': ras,'photo':photo != null ? await MultipartFile.fromFile(photo.path,) : null });
+    late Response? response;
     try {
-      final response = await dio.post(urlApi + "cat",
-          data: {'title': title, 'content': content, 'thumbnail': null});
+      response = await dio.post(urlApi + "cat",
+          data: formData);
       print("ini post " + response.toString());
     } catch (e) {
+      response = null;
       print(e.toString());
     }
+    return response;
   }
 
   Future<PostDetail?> getPostDetail(int id) async {

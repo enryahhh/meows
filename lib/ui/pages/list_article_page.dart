@@ -93,6 +93,7 @@ class _ListArticlePageState extends State<ListArticlePage> {
                     return ListView.builder(
                         itemCount: _postAll.length,
                         shrinkWrap: true,
+                        physics: ScrollPhysics(),
                         itemBuilder: (ctx, i) =>
                             CardArticle(post: _postAll[i]));
                   }

@@ -15,7 +15,7 @@ class AddCat extends CatsEvent{
     final String jk;
     final String? birth;
     final String? ras;
-    final String? photo;
+    final File? photo;
 
   AddCat(this.namaKucing, this.jk, this.birth, this.ras, this.photo);
 
